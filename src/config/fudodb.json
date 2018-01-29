@@ -1,0 +1,78 @@
+{
+  "users": [
+    {
+      "id": "admin",
+      "userName": "bhagya",
+      "password": "admin123",
+      "loginStatus": false
+    }
+  ],
+  "items": [
+    {
+      "name": "Momo",
+      "price": "120",
+      "quantity": 995,
+      "type": "Kitchen",
+      "threshold": "122",
+      "id": 1
+    },
+    {
+      "name": "Choumin",
+      "price": "100",
+      "quantity": 1180,
+      "type": "Kitchen",
+      "threshold": "100",
+      "id": 2
+    }
+  ],
+  "tables": [
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 1
+    },
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 2
+    },
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 3
+    },
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 4
+    },
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 5
+    }
+  ],
+  "orders": [
+    {
+      "orderId": 1,
+      "timeStamp": "10:20am",
+      "table": 1,
+      "waiterName": "Ram prasad"
+    }
+  ],
+  "orderItems": [
+    {
+      "id": 2,
+      "item": "Chaumin",
+      "quantity": 2,
+      "tableNo": 1,
+      "status": "served"
+    }
+  ],
+  "EODReport": []
+}

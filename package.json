@@ -3,20 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.17.1",
+    "immutability-helper": "^2.6.4",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
+    "react-dnd": "^2.5.4",
+    "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.0"
+    "react-redux": "^5.0.6",
+    "react-scripts": "1.1.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "semantic-ui-css": "^2.2.12",
+    "semantic-ui-react": "^0.77.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "startFudoserver": "json-server --watch ./src/config/fudodb.json --port 3001",
+    "start": " npm run startFudoserver | react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "eslint": "^4.15.0",
+    "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3"
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "json-server": "^0.12.1"
   }
 }
