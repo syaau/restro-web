@@ -1,7 +1,6 @@
 import React from 'react';
 import Home from './Home';
 
-
 const App = () => {
   return (
     <div className="rapper" >
@@ -9,4 +8,5 @@ const App = () => {
     </div>
   );
 };
+
 export default App;

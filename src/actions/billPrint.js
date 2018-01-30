@@ -2,23 +2,26 @@ import axios from 'axios';
 import './../config/';
 import { ENDPOINT } from './../config/development';
 
-export default function billPrint(itemName, itemquantity, tableName) {
-  return async (dispatch) => {
+export default function billPrint(orderId) {
+  return async (dispatch, getState) => {
     try {
-      const respose = await axios.get(`${ENDPOINT}${tableName}?name=${itemName}`);
-      const responseData = respose.data;
-      const itemTobeUpdated = responseData.find(item => item.name === itemName);
-      itemTobeUpdated.quantity -= itemquantity;
-      const updataResponse = await axios.put(`${ENDPOINT}${tableName}/${itemTobeUpdated.id}/`, itemTobeUpdated);
-      const updatedData = updataResponse.data;
-      console.log('billprint data from items table', updatedData);
-      dispatch({
-        type: 'BIll_PRINTED',
-        tableName,
-        payload: updatedData,
-      });
+      const order = getState().orders.find(o => o.id === orderId);
+      const orderItems = getState().orderItems.filter(o => o.orderId === orderId);
+
+      if (order.status !== 'billed') {
+        await axios.put(`${ENDPOINT}/orders/${order.id}`, {
+          status: 'billed',
+        });
+
+        orderItems.map(async (orderItem) => {
+          const item = getState().items.find(i => i.id === orderItem.itemid);
+          await axios.put(`${ENDPOINT}/items/${orderItem.itemId}`, {
+            quantity: item.quantity - orderItem.quantity,
+          });
+        });
+      }
     } catch (e) {
-      console.log('error');
+      console.error(e);
     }
   };
 }

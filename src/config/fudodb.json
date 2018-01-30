@@ -23,6 +23,22 @@
       "type": "Kitchen",
       "threshold": "100",
       "id": 2
+    },
+    {
+      "name": "Rum",
+      "price": "125",
+      "quantity": 1180,
+      "type": "Kitchen",
+      "threshold": "100",
+      "id": 3
+    },
+    {
+      "name": "Coffee",
+      "price": "4",
+      "quantity": "12",
+      "type": "jtp",
+      "threshold": "129",
+      "id": 4
     }
   ],
   "tables": [
@@ -33,45 +49,173 @@
       "id": 1
     },
     {
-      "top": 0,
-      "left": 0,
+      "top": 127,
+      "left": 45,
       "rotationAngle": 0,
       "id": 2
     },
     {
-      "top": 0,
-      "left": 0,
+      "top": 203,
+      "left": 234,
       "rotationAngle": 0,
       "id": 3
     },
     {
-      "top": 0,
-      "left": 0,
-      "rotationAngle": 0,
+      "top": 44,
+      "left": 270,
+      "rotationAngle": 90,
       "id": 4
+    },
+    {
+      "top": 175,
+      "left": 418,
+      "rotationAngle": 0,
+      "id": 5
+    },
+    {
+      "top": -4,
+      "left": 538,
+      "rotationAngle": 0,
+      "id": 6
+    },
+    {
+      "top": 95,
+      "left": 438,
+      "rotationAngle": 0,
+      "id": 7
     },
     {
       "top": 0,
       "left": 0,
       "rotationAngle": 0,
-      "id": 5
+      "id": 8
+    },
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 9
+    },
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 10
+    },
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 11
+    },
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 12
+    },
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 13
+    },
+    {
+      "top": 0,
+      "left": 0,
+      "rotationAngle": 0,
+      "id": 14
     }
   ],
   "orders": [
     {
-      "orderId": 1,
-      "timeStamp": "10:20am",
-      "table": 1,
-      "waiterName": "Ram prasad"
+      "tableNo": 2,
+      "id": 1
+    },
+    {
+      "tableNo": 2,
+      "id": 2
+    },
+    {
+      "tableNo": 6,
+      "id": 3
+    },
+    {
+      "tableNo": 1,
+      "id": 4
+    },
+    {
+      "tableNo": 2,
+      "id": 5
+    },
+    {
+      "tableNo": 5,
+      "id": 6
     }
   ],
   "orderItems": [
     {
-      "id": 2,
-      "item": "Chaumin",
-      "quantity": 2,
-      "tableNo": 1,
-      "status": "served"
+      "orderId": 4,
+      "itemId": 1,
+      "quantity": "12",
+      "rate": "120",
+      "id": 5
+    },
+    {
+      "orderId": 5,
+      "itemId": 2,
+      "quantity": "2",
+      "rate": "100",
+      "id": 6
+    },
+    {
+      "itemId": 1,
+      "orderId": 1,
+      "quantity": "2",
+      "rate": "120",
+      "id": 8
+    },
+    {
+      "itemId": 2,
+      "orderId": 1,
+      "quantity": "2",
+      "rate": "100",
+      "id": 9
+    },
+    {
+      "itemId": 2,
+      "orderId": 2,
+      "quantity": "4",
+      "rate": "100",
+      "id": 10
+    },
+    {
+      "itemId": 3,
+      "orderId": 2,
+      "quantity": "2",
+      "rate": "125",
+      "id": 11
+    },
+    {
+      "itemId": 1,
+      "orderId": 3,
+      "quantity": "4",
+      "rate": "120",
+      "id": 12
+    },
+    {
+      "itemId": 2,
+      "orderId": 6,
+      "quantity": "5",
+      "rate": "100",
+      "id": 13
+    },
+    {
+      "itemId": 2,
+      "orderId": 6,
+      "quantity": "2",
+      "rate": "100",
+      "id": 14
     }
   ],
   "EODReport": []

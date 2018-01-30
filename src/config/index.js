@@ -8,5 +8,5 @@ if (process.env.NODE_ENV !== 'production') {
   config = Object.assign({}, production, development);
 }
 
-//module.exports = config;
+// module.exports = config;
 export default config;

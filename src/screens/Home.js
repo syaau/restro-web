@@ -6,6 +6,7 @@ import MainAdminSetion from './../components/MainAdminSection';
 import AdminLogin from './../components/AminLogin';
 
 const Home = ({ session }) => {
+
   return (
     <div className="wrapper">
       <Header />
@@ -18,4 +19,5 @@ const Home = ({ session }) => {
 const mapStateToProps = (state) => ({
   session:  state.session
 })
+
 export default connect(mapStateToProps)(Home);

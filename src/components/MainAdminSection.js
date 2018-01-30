@@ -8,7 +8,7 @@ import MainTableContainerWrapper from './MainTableContainerWrapper';
 const MainAdminSection = () => (
   <div className="wrapper">
     <div className="order-stock-wrapper">
-      <div className="customer-order-show">
+      <div>
         <CurrentOrderShow />
       </div>
       <div className="customer-order-show">
