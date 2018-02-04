@@ -1,12 +1,38 @@
 import axios from 'axios';
 import config from '../config';
 
+// function createAction(socket, actionName) {
+//   return (...args) => {
+//     socket.send(JSON.stringify([actionName, [args]]));
+//   }
+// }
+
+// // const actions = {
+//   placeOrder: createAction(socket, 'placeOrder'),
+//   updateOrder: createAction(socket, 'updateOrder'),
+//   getItems: createAction(socket, 'getItems'),
+// };
+
+// const socket = new WebSocket(url);
+
+// socket.on('message', (data) => {
+//   store.dispatch(JSON.parse(data));
+// });
+
+// socket.on('close', () => {
+
+// });
+
 /**
  *
  * @param {*} tableNo The table number where the order was placed
  * @param {*} items An array of items ordered ({ itemId, qty })
  */
 export default function placeOrder(tableNo, items) {
+ // socket.send(JSON.stringify(['placeOrder', [tableNo, items]]));
+
+
+
   return async (dispatch, getState) => {
     try {
       const order = (await axios.post(`${config.ENDPOINT}orders`, { tableNo })).data;

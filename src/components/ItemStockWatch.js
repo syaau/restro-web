@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table, Icon } from 'semantic-ui-react';
+import { Table, Icon, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import selectTabledata from './../actions/selectTabledata';
 import deleteItem from './../actions/deleteItem';
@@ -38,10 +38,10 @@ class ItemStockWatchComponent extends Component {
   render() {
     return (
       <div>
-        <Table celled inverted selectable>
+        <Table celled selectable>
           <Table.Header>
             <Table.Row textAlign="center">
-              <Table.HeaderCell colSpan="6"><h2>Item Stock Watch</h2></Table.HeaderCell>
+              <Table.HeaderCell colSpan="8"><h2>Item Stock Watch</h2></Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Header>
@@ -59,16 +59,16 @@ class ItemStockWatchComponent extends Component {
               <Table.Row
                 key={item.id}
                 style={{
-                  background: item.quantity > parseInt(item.threshold, 10) ? '' : '#8B1D06',
+                  background: item.quantity > parseInt(item.threshold, 10) ? '' : '#CD6155',
                   }}
               >
-                <Table.Cell >{item.name}</Table.Cell>
+                <Table.Cell>{item.name}</Table.Cell>
                 <Table.Cell>{item.price}</Table.Cell>
                 <Table.Cell>{item.type}</Table.Cell>
                 <Table.Cell>{item.quantity}</Table.Cell>
                 <Table.Cell>
                   <Icon
-                    size="big"
+                    size="large"
                     color="green"
                     name="edit"
                     link
@@ -77,8 +77,8 @@ class ItemStockWatchComponent extends Component {
                 </Table.Cell>
                 <Table.Cell>
                   <Icon
-                    size="big"
-                    color="red"
+                    size="large"
+                    color="green"
                     name="delete"
                     link
                     onClick={() => this.toggleDeleteModal(item.id)}
@@ -91,11 +91,11 @@ class ItemStockWatchComponent extends Component {
           <Table.Footer>
             <Table.Row textAlign="center">
               <Table.HeaderCell colSpan="6">
-                <Icon
-                  size="huge"
+                <Button
                   color="green"
-                  name="add circle"
-                  link
+                  labelPosition="right"
+                  icon="add circle"
+                  content="Add Item"
                   onClick={() => this.setState({ addItem: true })}
                 />
               </Table.HeaderCell>

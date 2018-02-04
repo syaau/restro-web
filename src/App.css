@@ -1,64 +1,18 @@
 *{
-  font-family: Verdana;
-  margin: 0;
-
+  margin: 20px;
+  font-family:  sans-serif;
 }
 
 body{
   background-color: rgb(245, 240, 240);
 }
 
-.header{
-  display: flex;
-  justify-content: center;
-  height: 100px;
-  width: 100%;
-  background: #000;
-  color: #eee;
-}
-
 .wrapper{
   width: 100%;
-  max-width: 80%;
+  display: flex;
+  justify-content: center;
   margin: 0 auto;
   min-height: 800px;
-  background: rgb(184, 102, 102);
-}
-.main-container{
-  background: #fff;
-}
-.menu-section{
-  background: rgb(14, 13, 13)
-}
-
-.body-section{
-  min-height: 600px;
-}
-
-.footer-section{
-  min-height: 100px;
-  background: #000;
-  color:whitesmoke;
-  display: flex;
-  justify-content: center;
-}
-
-.admin-section-wrapper{
-  display: flex;
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  background:  rgb(184, 102, 102);
-}
-.admin-main-container{
-   flex-flow: column;
-  background:rgb(51, 228, 66);
-  margin-top: 100px;
-  width: 300px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .login-form{
@@ -77,30 +31,20 @@ body{
   width: 50px;
   align-content: center;
   margin-left: 130px;
-
 }
 .order-stock-wrapper{
-  /* display: flex; */
-  sud
+   display: flex;
   justify-content: space-between;
 }
 .customer-order-show{
-  margin-top: 50px;
-   margin: 20px;
-  width: 100%;
-  height: 400px;
-
-  /* background: rgb(236, 193, 157) */
+  justify-content: space-between;
 }
 .current-orders{
   display: flex;
   justify-content: space-between;
-  background: rgb(238, 56, 56)
 }
 .current-order-list-display{
-  background: rgb(240, 94, 94);
   display: flex;
-  margin: 5px;
   justify-content: space-between;
 }
 .current-order-list-display li {
@@ -114,53 +58,21 @@ body{
 .database-handler{
   margin-left: 20px;
 }
-.popup {
-  display: flex;
-  justify-content: space-between;
-  position: fixed;
+
+.table-watch{
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  background-color: rgba(0,0,0, 0.5);
-}
-.popup_inner {
-  background: rgb(233, 101, 101);
-  display: flex;
-  position: absolute;
-  left: 30%;
-  right: 30%;
-  top: 25%;
-  bottom: 25%;
-  margin: auto;
-}
-.popup_inner label{
-  justify-content: space-between;
-  margin-top: 30px;
-}
-.popup_inner input{
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-.table-watch{
-  width: 450px;
-  height: 500px;
   color: #eee;
   background: rgb(46, 44, 44);
 }
 .order-table-footer{
   display: flex;
   height: 50px;
-  width: 700px;
   margin-left: 20px;
   justify-content: space-between;
 }
 .order-table-footer-child{
   display: flex;
-  width: 700px;
   margin-left: 10px;
   justify-content: space-between;
   height: 30px;
@@ -188,8 +100,10 @@ body{
 .expand button{
   margin-left: 70px;
 }
-
-
+.table-row-style{
+ height:20px;
+ padding: 0px;
+}
 
 
 

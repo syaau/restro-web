@@ -1,81 +1,20 @@
-import React from 'react';
+import React,{Component} from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import MainApp from './screens/App';
 import './App.css';
+import PropTypes from 'prop-types';
 import selectTableData from './actions/selectTabledata';
+import schemaReducer from './reducers/schemaReducer';
+import sessionReducer from './reducers/sessionReducer';
+import Cookies from 'universal-cookie'
+import createSocket,{connectApi} from 'socket.red-client';
 
-const sessionReducer = (state = ' ', action) => {
-  switch (action.type) {
-    case 'USER_LOGIN':
-      return action.payload;
-    case 'LOGIN_FAILED':
-      return action.payload;
-    default:
-      return state;
-  }
-};
-const currentTableId = (state = null, action) => {
-  switch (action.type) {
-    case 'UPDATE_CURRENT_TABLE_ID':
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-const schemaReducer = tableName => (state = [], action) => {
-  if (tableName === action.tableName) {
-    switch (action.type) {
-      case 'ADD_MULTIPLE':
-        console.log('ADD-MULTIPLE', action.payload);
-        return state.concat(action.payload);
-      case 'DELETE_MULTIPLE':
-        return state.filter(s => !action.payload.contains(s.id));
-      case 'POP_TABLE_DATA':
-        return action.payload;
-      case 'DATA_INSERTED':
-        return [...state, action.payload];
-      case 'DATA_UPDATED':
-        return state.map(item => (item.id === action.payload.id ? { ...item, ...action.payload } : item));
-      case 'DATA_DELETED':
-        return state.filter(obj => obj.id !== action.payload);
-      case 'MOVE_TABLE':
-        console.log('crrent state at movetable reducer', JSON.stringify(action.payload));
-        return state.map((table) => {
-          if (table.id === action.payload.id) {
-            return {
-              ...table,
-              left: action.payload.left,
-              top: action.payload.top,
-            };
-          }
-          return table;
-        });
-
-      case 'ROTATE_TABLE':
-        return state.map((table) => {
-          if (table.id === action.payload.id) {
-            return {
-              ...table,
-              rotationAngle: action.payload.rotationAngle,
-            };
-          }
-          return table;
-        });
-
-
-      default:
-        return state;
-    }
-  }
-  return state;
-};
+const cookies = new Cookies();
 
 const store = createStore(combineReducers({
   session: sessionReducer,
-  currentTableId,
   orderItems: schemaReducer('orderItems'),
   tables: schemaReducer('tables'),
   orders: schemaReducer('orders'),
@@ -87,13 +26,79 @@ store.dispatch(selectTableData('items'));
 store.dispatch(selectTableData('orders'));
 store.dispatch(selectTableData('orderItems'));
 
-const App = () => {
-  return (
-    <div>
-      <Provider store={store}>
-        <MainApp />
-      </Provider>
-    </div>
-  );
+const sessionId = cookies.get('session-id');
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sessionId,
+      online: false,
+      user: null,
+    };
+
+    this.socket = createSocket(store.dispatch);
+    this.api = {
+      placeOrder: (...args) => this.socket.rpc('placeOrder', ...args),
+      updateOrder: (...args) => this.socket.rpc('updateOrder', ...args),
+      sum: (...args) => this.socket.rpc('sum', ...args),
+    };
+
+    this.socket.on('connect', () => {
+      console.log('Conneted');
+      this.setState({
+        online: true,
+      });
+    });
+    this.socket.on('disconnect', () => {
+      console.log('disconnected');
+      this.setState({
+        online: false,
+      });
+    });
+
+    this.socket.on('error', (e) => {
+      console.error(e);
+    });
+
+    this.socket.on('event', (name, data) => {
+      if (name === 'user') {
+        this.setState({
+          user:data,
+        });
+      }
+    });
+
+    if (sessionId) {
+      this.socket.open(`ws://localhost:8080/${sessionId}`);
+    }
+  }
+
+  getChildContext() {
+    return {
+      api: this.api,
+    };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.sessionId !== nextState.sessionId) {
+      console.log('connected');
+      this.socket.open(`ws://localhost:8080/${nextState.sessionId}`);
+    }
+    return true;
+  }
+
+  render() {
+    return (
+      <div>
+        <Provider store={store}>
+          <MainApp />
+        </Provider>
+      </div>
+    );
+  }
+}
+App.childContextTypes = {
+  api: PropTypes.object,
 };
 export default App;

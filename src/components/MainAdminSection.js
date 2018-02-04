@@ -6,16 +6,18 @@ import MainTableContainerWrapper from './MainTableContainerWrapper';
 
 
 const MainAdminSection = () => (
-  <div className="wrapper">
-    <div className="order-stock-wrapper">
-      <div>
+  <div>
+    <div className="wrapper">
+      <div className="order-stock-wrapper">
         <CurrentOrderShow />
       </div>
       <div className="customer-order-show">
         <ItemStockWatchComponent />
       </div>
     </div>
-    <MainTableContainerWrapper />
+    <div className="main-table-container">
+      <MainTableContainerWrapper />
+    </div>
   </div>
 );
 

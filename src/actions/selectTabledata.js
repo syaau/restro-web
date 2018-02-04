@@ -5,7 +5,7 @@ import { ENDPOINT } from './../config/development';
 export default function selectTabledata(tableName) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ENDPOINT}${tableName}/`);
+      const response = await axios.get(`/${tableName}/`);
       const tableData = response.data;
       dispatch({
         type: 'POP_TABLE_DATA',

@@ -36,12 +36,13 @@ class AdminLogin extends Component {
               style={{ height: '100%' }}
               verticalAlign="middle"
             >
-              <Grid.Column style={{ maxWidth: 450 }}>
-                <Form size="large">
-                  <Segment stacked>
+              <Grid.Column style={{ maxWidth: 550 }}>
+                <Segment stacked >
+                  <Form size="large">
                     <Header as="h1" color="teal">Enter your login details</Header>
                     <Form.Input
                       fluid
+                      maxWidth="40px"
                       icon="user"
                       iconPosition="left"
                       placeholder="User Name...."
@@ -61,11 +62,11 @@ class AdminLogin extends Component {
                       fluid
                       color="teal"
                       size="large"
-                      onClick={() => this.props.dispatch(login(this.state.username, this.state.password))} >
+                      onClick={() => this.props.dispatch(login(this.state.username, this.state.password))}>
                       Login
                     </Button>
-                  </Segment>
-                </Form>
+                  </Form>
+                </Segment>
                 {this.props.error === 'Invalid username/password' ?
                   <Message
                     error

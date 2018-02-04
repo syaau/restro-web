@@ -8,6 +8,7 @@ import billPrint from './../actions/billPrint';
 import deleteOrderItem from './../actions/deleteItem';
 import OrderItemFormModal from './OrderItemFormModal';
 import insertOrderItems from './../actions/insertItemData';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 
 
 class CurrentOrderShow extends Component {
@@ -25,7 +26,7 @@ class CurrentOrderShow extends Component {
   render() {
     return (
       <div>
-        <Table celled inverted selectable>
+        <Table celled selectable>
           <Table.Header>
             <Table.Row textAlign="center">
               <Table.HeaderCell colSpan="6"><h2>Current Orders</h2></Table.HeaderCell>
@@ -54,11 +55,11 @@ class CurrentOrderShow extends Component {
           <Table.Footer>
             <Table.Row textAlign="center">
               <Table.HeaderCell colSpan="6">
-                <Icon
-                  size="huge"
+                <Button
                   color="green"
-                  name="add circle"
-                  link
+                  labelPosition="right"
+                  icon="add circle"
+                  content="Add Order"
                   onClick={() => this.setState({ orderForm: true })}
                 />
               </Table.HeaderCell>
@@ -95,7 +96,7 @@ const OrderRow = connect((state, ownProps) => ({
 }))(({
   items, order, onEdit, onDelete, onPrint,
 }) => (
-  <Table.Row>
+  <Table.Row className="table-row-style">
     <Table.Cell>
       {order.tableNo}
     </Table.Cell>
@@ -112,7 +113,7 @@ const OrderRow = connect((state, ownProps) => ({
     </Table.Cell>
     <Table.Cell>
       <Icon
-        size="big"
+        size="large"
         color="green"
         name="edit"
         link
@@ -121,7 +122,7 @@ const OrderRow = connect((state, ownProps) => ({
     </Table.Cell>
     <Table.Cell>
       <Icon
-        size="big"
+        size="large"
         color="green"
         name="print"
         link

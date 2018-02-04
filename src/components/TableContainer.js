@@ -188,4 +188,3 @@ const mapDispatchToProps = (dispatch) => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(ItemTypes.TABLE, tableTarget, collect)(TableContainer));
-
