@@ -1,0 +1,121 @@
+{
+  "users": [
+    {
+      "id": "admin",
+      "userName": "bhagya",
+      "password": "admin123",
+      "loginStatus": false
+    },
+    {
+      "userType": "normal",
+      "username": "bhagya",
+      "password": "bhagya123",
+      "id": "MCbncBl"
+    }
+  ],
+  "items": [
+    {
+      "itemType": "bar",
+      "name": "Momo",
+      "unit": "plate",
+      "threshold": "100",
+      "id": 1
+    },
+    {
+      "itemType": "kitchen",
+      "name": "Chaumin",
+      "unit": "plate",
+      "threshold": "120",
+      "id": 2
+    }
+  ],
+  "tables": [
+    {
+      "top": 13,
+      "left": 61,
+      "rotationAngle": 0,
+      "id": 1
+    },
+    {
+      "top": 40,
+      "left": 334,
+      "rotationAngle": 0,
+      "id": 2
+    },
+    {
+      "top": 141,
+      "left": 41,
+      "rotationAngle": 0,
+      "id": 3
+    }
+  ],
+  "orders": [
+    {
+      "tableNo": 1,
+      "status": "billed",
+      "id": 1
+    },
+    {
+      "tableNo": 1,
+      "status": "billed",
+      "id": 2
+    },
+    {
+      "tableNo": 1,
+      "status": "pending",
+      "id": 3
+    }
+  ],
+  "orderItems": [
+    {
+      "orderId": 1,
+      "itemId": 1,
+      "quantity": "1",
+      "rate": "100",
+      "id": 1
+    },
+    {
+      "orderId": 1,
+      "itemId": 2,
+      "quantity": "2",
+      "rate": "120",
+      "id": 2
+    },
+    {
+      "itemId": 1,
+      "orderId": 2,
+      "quantity": "1",
+      "rate": "100",
+      "id": 3
+    },
+    {
+      "orderId": 3,
+      "itemId": 2,
+      "quantity": "2",
+      "rate": "150",
+      "id": 4
+    }
+  ],
+  "EODReport": [],
+  "menuItems": [
+    {
+      "itemId": 1,
+      "name": "fried momo",
+      "qty": "1",
+      "price": "150",
+      "id": 2
+    }
+  ],
+  "purchase": [
+    {
+      "itemId": 2,
+      "qty": "100",
+      "id": 1
+    },
+    {
+      "itemId": 1,
+      "qty": "120",
+      "id": 2
+    }
+  ]
+}

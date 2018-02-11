@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import Board from './react-dnd/Board';
+import { observe } from './react-dnd/Game';
+import MainTableContainerWrapper from './components/MainTableContainerWrapper';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+
+ReactDOM.render(<App />,document.getElementById('root'));
