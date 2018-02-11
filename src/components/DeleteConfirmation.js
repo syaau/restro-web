@@ -39,7 +39,7 @@ const DeleteConfirmation = ({
 
 DeleteConfirmation.propTypes = {
   visible: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
+  message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   header: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };

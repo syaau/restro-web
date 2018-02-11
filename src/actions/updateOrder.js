@@ -2,6 +2,7 @@ import axios from 'axios';
 import config from '../config';
 
 export default function updateOrder(orderId, tableNo, orderItems) {
+  console.log('update order method called', orderId, tableNo, orderItems);
   return async (dispatch, getState) => {
     try {
       // get all the old items
@@ -52,7 +53,7 @@ export default function updateOrder(orderId, tableNo, orderItems) {
         payload: newItems,
       });
     } catch (e) {
-      console.error(e);
+      console.error(e.status);
     }
   };
 }

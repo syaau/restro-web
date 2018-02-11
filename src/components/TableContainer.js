@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Table, Icon } from 'semantic-ui-react';
+import { Table, Icon, Segment, Menu } from 'semantic-ui-react';
 import { DropTarget } from 'react-dnd';
 import ItemTypes from './ItemTypes';
 import TableObj from './Table';
@@ -11,6 +11,8 @@ import selectTabledata from './../actions/selectTabledata';
 import deleteItem from './../actions/deleteItem';
 import rotateTable from './../actions/rotateTable';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
+import MenuItems from './MenuItems';
+import AddUser from './forms/AddUser';
 
 const styles = {
   width: 700,
@@ -48,8 +50,12 @@ class TableContainer extends Component {
     super(props);
     this.state = {
       showTable: false,
+      activeItem: 'home',
+      menuItems: false,
+      addUser: false,
     };
   }
+  menuhandleItemClick = (e, { name }) => this.setState({ activeItem: name });
   showTableSettingController() {
     return (
       <div>
@@ -86,21 +92,22 @@ class TableContainer extends Component {
 
   render() {
     const { hideSourceOnDrag, connectDropTarget } = this.props;
-    const { showTable } = this.state;
+    const { showTable, activeItem } = this.state;
 
     console.log('ishidingsource status', { hideSourceOnDrag });
     const { tables } = this.props;
     console.log('Table Watch', this.state);
     return (
       <div>
-        <div className="table-watch-expand">
-          <h1>Table Watch</h1>
-          <div className="expand button">
-            <Button onClick={() => this.setState({ showTable: !this.state.showTable })}>
-              {(showTable ? 'Hide' : 'Show')}
-            </Button>
-          </div>
-        </div>
+        <Segment inverted>
+          <Menu inverted pointing secondary>
+            <Menu.Item name='table watch' active={activeItem === 'table watch'} onClick={() => this.setState({ showTable: !this.state.showTable, activeItem: 'table watch'})} />
+            <Menu.Item name='menu items' active={activeItem === 'menu items'} onClick={() => this.setState({ menuItems: !this.state.menuItems, activeItem: 'menu items' })} />
+            <Menu.Item name='add user' active={activeItem === 'add user'} onClick={() => this.setState({ addUser: !this.state.addUser, activeItem: 'add user' })} />
+          </Menu>
+        </Segment>
+        {this.state.menuItems ? <MenuItems /> : null}
+        {this.state.addUser ? <AddUser open={this.state.addUser} onClose={() => this.setState({ addUser: false })} /> : null}
         { showTable &&
           <Table celled inverted selectable>
             <Table.Header>
@@ -138,7 +145,6 @@ class TableContainer extends Component {
                               rotationAngle={rotationAngle}
                               hideSourceOnDrag
                             />
-
                           </div>
                         );
                       })

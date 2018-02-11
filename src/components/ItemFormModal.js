@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Segment, Form } from 'semantic-ui-react';
+import { Button, Modal, Segment, Input } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -55,75 +55,77 @@ class ItemFormModal extends Component {
       name, price, quantity, type, threshold,
     } = this.state;
     return (
-      <div>
-        <Modal
-          open={this.props.visible}
-        >
-          <Modal.Header>
-              Enter Item Details..
-          </Modal.Header>
-          <Modal.Content>
-            <Segment>
-              <Form>
-                <Form.Group unstackable widths={3}>
-                  <Form.Input
-                    type="text"
-                    label="Name"
-                    placeholder="Name..."
-                    value={name}
-                    onChange={this.inputChangeHandler('name')}
-                  />
-                  <Form.Input
-                    type="text"
-                    label="Type"
-                    placeholder="Type..."
-                    value={type}
-                    onChange={this.inputChangeHandler('type')}
-                  />
-                  <Form.Input
-                    type="text"
-                    label="Threshold"
-                    placeholder="Threshold..."
-                    value={threshold}
-                    onChange={this.inputChangeHandler('threshold')}
-                  />
-                </Form.Group>
-                <Form.Group widths={2}>
-                  <Form.Input
-                    type="text"
-                    label="Quantity"
-                    placeholder="Quantity..."
-                    value={quantity}
-                    onChange={this.inputChangeHandler('quantity')}
-                  />
-                  <Form.Input
-                    type="text"
-                    label="Unit Price"
-                    placeholder="Unit Price..."
-                    value={price}
-                    onChange={this.inputChangeHandler('price')}
-                  />
-                </Form.Group>
-                <Button
-                  positive
-                  type="submit"
-                  onClick={() => {
-                    this.props.onSuccess(this.state);
-                     this.props.onClose(true);
-                     this.resetInputField();
-                    }}
-                >Submit
-                </Button>
-                <Button
-                  negative
-                  onClick={() => this.props.onClose(false)}
-                >Cancel
-                </Button>
-              </Form>
-            </Segment>
-          </Modal.Content>
-        </Modal>
-      </div>
+      <Modal
+        open={this.props.visible}
+      >
+        <Modal.Header>
+            Enter Item Details..
+        </Modal.Header>
+        <Modal.Content className="item-form-modal">
+          <Segment>
+            <div className="input-form-group">
+              <Input
+                className="input-form-group"
+                type="text"
+                label="Name"
+                placeholder="Name..."
+                value={name}
+                onChange={this.inputChangeHandler('name')}
+              />
+              <Input
+                className="input-form-group"
+                type="text"
+                label="Type"
+                placeholder="Type..."
+                value={type}
+                onChange={this.inputChangeHandler('type')}
+              />
+              <Input
+                className="input-form-group"
+                type="text"
+                label="Threshold"
+                placeholder="Threshold..."
+                value={threshold}
+                onChange={this.inputChangeHandler('threshold')}
+              />
+            </div>
+            <div className="input-form-group">
+              <Input
+                type="text"
+                label="Quantity"
+                placeholder="Quantity..."
+                value={quantity}
+                onChange={this.inputChangeHandler('quantity')}
+              />
+              <Input
+                type="text"
+                label="Unit Price"
+                placeholder="Unit Price..."
+                value={price}
+                onChange={this.inputChangeHandler('price')}
+              />
+            </div>
+          </Segment>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button
+            positive
+            type="submit"
+            onClick={() => {
+              this.props.onSuccess(this.state);
+                this.props.onClose(true);
+                this.resetInputField();
+              }}
+          >Submit
+          </Button>
+          <Button
+            negative
+            onClick={() => this.props.onClose(false)}
+          >Cancel
+          </Button>
+        </Modal.Actions>
+      </Modal>
+
     );
   }
 }

@@ -12,17 +12,12 @@ import config from '../config';
 //   updateOrder: createAction(socket, 'updateOrder'),
 //   getItems: createAction(socket, 'getItems'),
 // };
-
 // const socket = new WebSocket(url);
-
 // socket.on('message', (data) => {
 //   store.dispatch(JSON.parse(data));
 // });
-
 // socket.on('close', () => {
-
 // });
-
 /**
  *
  * @param {*} tableNo The table number where the order was placed
@@ -30,12 +25,11 @@ import config from '../config';
  */
 export default function placeOrder(tableNo, items) {
  // socket.send(JSON.stringify(['placeOrder', [tableNo, items]]));
-
-
+ console.log('Place orderMethod called', JSON.stringify(items));
 
   return async (dispatch, getState) => {
     try {
-      const order = (await axios.post(`${config.ENDPOINT}orders`, { tableNo })).data;
+      const order = (await axios.post(`${config.ENDPOINT}orders`, { tableNo, status: 'pending' })).data;
       const orderItems = await Promise.all(items.map(async (item) => {
         const response = await axios.post(`${config.ENDPOINT}orderItems`, {
           orderId: order.id,

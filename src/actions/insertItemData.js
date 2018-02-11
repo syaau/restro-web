@@ -14,6 +14,7 @@ export default function insertItemData(data, tableName) {
         tableName,
         payload: insertedData,
       });
+      return insertedData;
     } catch (e) {
       console.error(e);
     }

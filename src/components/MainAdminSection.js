@@ -11,7 +11,7 @@ const MainAdminSection = () => (
       <div className="order-stock-wrapper">
         <CurrentOrderShow />
       </div>
-      <div className="customer-order-show">
+      <div className="order-stock-wrapper">
         <ItemStockWatchComponent />
       </div>
     </div>

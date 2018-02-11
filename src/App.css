@@ -1,5 +1,4 @@
 *{
-  margin: 20px;
   font-family:  sans-serif;
 }
 
@@ -9,6 +8,7 @@ body{
 
 .wrapper{
   width: 100%;
+  flex-wrap: wrap;
   display: flex;
   justify-content: center;
   margin: 0 auto;
@@ -33,12 +33,13 @@ body{
   margin-left: 130px;
 }
 .order-stock-wrapper{
-   display: flex;
-  justify-content: space-between;
+margin: 100px;
 }
+
 .customer-order-show{
   justify-content: space-between;
 }
+
 .current-orders{
   display: flex;
   justify-content: space-between;
@@ -75,14 +76,13 @@ body{
   display: flex;
   margin-left: 10px;
   justify-content: space-between;
-  height: 30px;
+
 }
 .lable-alignment{
   margin-left: 30px;
 }
 .add-button{
-  margin-bottom: 12px;
-  margin-right: 70px;
+  margin-bottom: 15px;
 }
 .order-items-cell{
   display: flex;
@@ -94,17 +94,59 @@ body{
   color: white;
   margin: 0%;
   padding: 10px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   background:rgb(17, 17, 17)
 }
 .expand button{
   margin-left: 70px;
 }
-.table-row-style{
- height:20px;
- padding: 0px;
+.item-form-modal{
+  margin: 0%;
 }
+.group-form{
+  height: 60px;
+}
+.input-form-group{
+  display: flex;
+  margin-right: 0px;
+}
+.drop-down{
+  display: flex;
+  width: 300px;
+  height: 100px;
+}
+.item-menu-form{
+  margin: 0%;
+}
+.drop-down-menu{
+  display: flex;
+  align-content: center;
+  padding: 0%;
+  margin: 0%;
+}
+.form-input-field{
+  width: 300px;
+  margin-top: 10px;
+}
+.menu-item-form-quantity{
+  display: flex;
+}
+.menu-item-custom-label{
+  height: 20px;
+  margin-left: 5px;
+  margin-top: 30px;
 
-
+}
+.menu-item-button{
+  margin-top: 27px;
+  margin-left: 5px;
+}
+.order-item-table-form{
+  width: 200px;
+}
+.add-custom-item{
+  display: flex;
+  justify-content: space-between;
+}
 
 

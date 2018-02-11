@@ -35,5 +35,5 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "json-server": "^0.12.1"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:3001"
 }

@@ -6,12 +6,14 @@ const schemaReducer = tableName => (state = [], action) => {
         console.log('ADD-MULTIPLE', action.payload);
         return state.concat(action.payload);
       case 'DELETE_MULTIPLE':
-        return state.filter(s => !action.payload.contains(s.id));
+      console.log('delte Multiple reducer called', JSON.stringify(action.payload), JSON.stringify(state));
+        return state.filter(s => !action.payload.includes(s.id));
       case 'POP_TABLE_DATA':
         return action.payload;
       case 'DATA_INSERTED':
         return [...state, action.payload];
       case 'DATA_UPDATED':
+      console.log('updated method called', action.payload);
         return state.map(item => (item.id === action.payload.id ? { ...item, ...action.payload } : item));
       case 'DATA_DELETED':
         return state.filter(obj => obj.id !== action.payload);
