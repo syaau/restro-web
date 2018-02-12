@@ -230,15 +230,15 @@ OrderItemFormModal.contextTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const res = {
-    menuItems: state.menuItems.reduce((r, item) => ({ ...r, [item.id]: item }), {}),
-    tables: state.tables,
+    menuItems: state.schema.MenuItem.reduce((r, item) => ({ ...r, [item.id]: item }), {}),
+    tables: state.schema.Table,
   };
 
   if (ownProps.orderId) {
     return {
       ...res,
-      tableNo: state.orders.find(o => o.id === ownProps.orderId).tableNo,
-      orderItems: state.orderItems.filter(o => o.orderId === ownProps.orderId),
+      tableNo: state.schema.Order.find(o => o.id === ownProps.orderId).tableNo,
+      orderItems: state.schema.OrderItem.filter(o => o.orderId === ownProps.orderId),
     };
   }
 

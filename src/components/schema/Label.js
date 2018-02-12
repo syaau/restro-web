@@ -12,7 +12,8 @@ const Label = (props, context) => {
     const state = context.store.getState();
     const records = state.schema[schema];
     const v = records.find(r => r.id === value);
-    if (v !== null) {
+    console.log('Record value is', v, records);
+    if (v) {
       content = typeof field === 'function' ? field(v) : v[field];
     }
   }

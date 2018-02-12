@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-export default function (socket) {
-  return function placeOrder(tableNo, orderItems) {
-    return socket.rpc('placeOrder', tableNo, orderItems);
-=======
 import axios from 'axios';
 import config from '../config';
 
@@ -61,6 +56,5 @@ export default function placeOrder(tableNo, items) {
     } catch (e) {
       console.error(e);
     }
->>>>>>> bhagya/master
   };
 }

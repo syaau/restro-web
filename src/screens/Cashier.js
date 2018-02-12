@@ -1,11 +1,7 @@
-import connectApi from '../connectApi';
+import React from 'react';
 
-class Cashier extends Component {
-  render() {
-    return (
-      <Button onClick={() => this.props.api.placeOrder(tableNo, orderItems)} title="Order Item"></Button>
-    );
-  }
-}
+const Cashier = () => (
+  <div />
+);
 
-export default connectApi(Cashier);
+export default Cashier;

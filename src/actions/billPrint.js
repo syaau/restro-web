@@ -1,6 +1,5 @@
 import axios from 'axios';
-import './../config/';
-import { ENDPOINT } from './../config/development';
+import config from './../config';
 
 export default function billPrint(orderId) {
   console.log('bill print method is called', orderId);
@@ -9,7 +8,7 @@ export default function billPrint(orderId) {
       const order = getState().orders.find(o => o.id === orderId);
       const orderItems = getState().orderItems.filter(o => o.orderId === orderId);
       if (order.status !== 'billed') {
-        const updateOrder = await axios.put(`${ENDPOINT}orders/${order.id}`, {
+        const updateOrder = await axios.put(`${config.ENDPOINT}orders/${order.id}`, {
           ...order,
           status: 'billed',
         });

@@ -162,10 +162,10 @@ class ItemStockWatchComponent extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    currentStockWatch: state.items,
-    orders: state.orders,
-    orderItems: state.orderItems,
-    purchase: state.purchase,
+    currentStockWatch: state.schema.Item,
+    orders: state.schema.Order,
+    orderItems: state.schema.OrderItem,
+    purchase: state.schema.Purchase,
   };
 };
 const mapDispatchToProps = (dispatch) => {

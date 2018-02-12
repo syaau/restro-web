@@ -1,194 +1,169 @@
-<<<<<<< HEAD
-/* global document */
 import React, { Component } from 'react';
-import cookie from 'cookie';
-import logo from './logo.svg';
-import './App.css';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Container, Dimmer, Header, Icon, Grid } from 'semantic-ui-react';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import Cookies from 'universal-cookie';
 import createSocket, { connectApi } from 'socket.red-client';
+import axios from 'axios';
 
-import placeOrderFactory from './actions/placeOrder';
+import Api from './Api';
+import Login from './components/Login';
+import Cashier from './screens/Cashier';
+import Admin from './screens/Admin';
 
-const sessionId = cookie.get('session-id');
+import schemaReducer from './reducers/schemaReducer';
+
+import './App.css';
+
+const cookies = new Cookies();
+
+const store = createStore(combineReducers({
+  schema: schemaReducer('User', 'ItemType', 'Item', 'MenuItem', 'Order', 'OrderItem', 'Table'),
+}), applyMiddleware(thunk));
+
+
+function getUserScreen(role) {
+  switch (role) {
+    case 'Waiter':
+    case 'Cashier':
+      return Cashier;
+
+    case 'Admin':
+      return Admin;
+
+    default:
+      return null;
+  }
+}
+
+const SESSION_KEY = 'session-id';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
+    const session = cookies.get(SESSION_KEY);
+
     this.state = {
-      sessionId: cookie.get('session-id'),
-      online: false,
       user: null,
+      offline: true,
+      sessionId: -1,
     };
 
-    this.socket = createSocket(store.dispatch);
-    this.api = connectApi(ServerApi, this.socket);
+    // Use session id to open websocket connection
+    // this.state.sessionId = session && session.token;
+
+    // Create socket with default options
+    this.socket = createSocket(store.dispatch, {
+      erroRetryInterval: 500,
+      responseTimeoutInterval: 200,
+    });
+
+    this.api = connectApi(Api, this.socket);
+
+    this.socket.on('error', () => {
+      this.validate(this.state.sessionId);
+    });
 
     this.socket.on('connect', () => {
       this.setState({
-        online: true,
+        offline: false,
       });
     });
 
     this.socket.on('disconnect', () => {
       this.setState({
-        online: false,
+        offline: true,
       });
     });
 
-    this.socket.on('event', (name, data) => {
-      if (name === 'user') {
-        this.setState({
-          user: data,
-        });
-      }
-    });
-  }
-
-  getChildContext() {
-    return {
-      api: this.api,
-    };
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.sessionId !== nextState.sessionId) {
-      this.socket.open(`ws://localhost:8080/${nextState.sessionId}`);
+    if (session) {
+      this.validate(session.token);
     }
-
-    return true;
   }
-=======
-import React,{Component} from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import MainApp from './screens/App';
-import './App.css';
-import PropTypes from 'prop-types';
-import selectTableData from './actions/selectTabledata';
-import schemaReducer from './reducers/schemaReducer';
-import sessionReducer from './reducers/sessionReducer';
-import Cookies from 'universal-cookie'
-import createSocket,{connectApi} from 'socket.red-client';
-import selectTabledata from './actions/selectTabledata';
 
-const cookies = new Cookies();
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.sessionId !== this.state.sessionId && this.state.sessionId) {
+      this.socket.open(`ws://localhost:8080/${this.state.sessionId}`);
+    }
+  }
 
-const store = createStore(combineReducers({
-  session: sessionReducer,
-  orderItems: schemaReducer('orderItems'),
-  tables: schemaReducer('tables'),
-  orders: schemaReducer('orders'),
-  items: schemaReducer('items'),
-  menuItems: schemaReducer('menuItems'),
-  purchase: schemaReducer('purchase'),
-}), applyMiddleware(thunk));
+  onLogin = (user) => {
+    this.setState({
+      user,
+      sessionId: user.token,
+    });
 
+    cookies.set(SESSION_KEY, user);
+  }
 
-store.dispatch(selectTableData('items'));
-store.dispatch(selectTableData('orders'));
-store.dispatch(selectTableData('orderItems'));
-store.dispatch(selectTableData('purchase'));
-store.dispatch(selectTableData('menuItems'));
-store.dispatch(selectTabledata('tables'));
-store.dispatch(selectTableData('purchase'));
-const sessionId = cookies.get('session-id');
+  onLogout = () => {
+    cookies.set(SESSION_KEY, null);
 
-class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     sessionId,
-  //     online: false,
-  //     user: null,
-  //   };
+    this.setState({
+      user: null,
+      sessionId: null,
+    });
 
-  //   this.socket = createSocket(store.dispatch);
-  //   this.api = {
-  //     placeOrder: (...args) => this.socket.rpc('placeOrder', args),
-  //     updateOrder: (...args) => this.socket.rpc('updateOrder', args),
-  //     sum: (...args) => this.socket.rpc('sum', args),
-  //   };
+    this.socket.close();
+  }
 
-  //   this.socket.on('connect', () => {
-  //     console.log('Conneted');
-  //     this.setState({
-  //       online: true,
-  //     });
-  //   });
-  //   this.socket.on('disconnect', () => {
-  //     console.log('disconnected');
-  //     this.setState({
-  //       online: false,
-  //     });
-  //   });
-
-  //   this.socket.on('error', (e) => {
-  //     console.error(e);
-  //   });
-
-  //   this.socket.on('event', (name, data) => {
-  //     if (name === 'user') {
-  //       this.setState({
-  //         user:data,
-  //       });
-  //     }
-  //   });
-
-  //   if (sessionId) {
-  //     this.socket.open(`ws://localhost:8080/${sessionId}`);
-  //   }
-  // }
-
-  // getChildContext() {
-  //   return {
-  //     api: this.api,
-  //   };
-  // }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.state.sessionId !== nextState.sessionId) {
-  //     console.log('connected');
-  //     this.socket.open(`ws://localhost:8080/${nextState.sessionId}`);
-  //   }
-  //   return true;
-  // }
->>>>>>> bhagya/master
+  async validate(sessionId) {
+    try {
+      const response = await axios({
+        url: `/validate/${sessionId}`,
+        method: 'post',
+      });
+      this.setState({
+        sessionId,
+        user: response.data,
+      });
+    } catch (err) {
+      this.setState({
+        sessionId: null,
+        user: null,
+      });
+    }
+  }
 
   render() {
-    const { sessionId, user, online } = this.state;
-    if (sessionId === null) {
-      return <Login onLogin={(u) => { this.setState({ sessionId: u.token }); }} />;
-    } else if (user !== null) {
-      if (user.role === 'cashier') {
-        return <Cashier />;
-      } else if (user.role === 'admin') {
-        return <Admin />
-      } else {
-        return <Error />
-      }
+    const { user, offline, sessionId } = this.state;
+
+    let content = null;
+    const dimmer = !!(offline && sessionId);
+    if (!sessionId) {
+      content = <Login onLogin={this.onLogin} />;
+    } else if (!user) {
+      content = 'Loading...';
     } else {
-      return <Loading />;
+      const Screen = getUserScreen(user.role);
+      content = <Screen user={user} onLogout={this.onLogout} api={this.api} />;
     }
 
     return (
-      <div>
-        <Provider store={store}>
-          <MainApp />
-        </Provider>
-      </div>
+      <Container>
+        <Grid stretched>
+          <Dimmer.Dimmable dimmed={dimmer}>
+            <Container>
+              <Dimmer active={dimmer}>
+                <Header as="h2" icon inverted>
+                  <Icon name="globe" />
+                  No Connection
+                </Header>
+              </Dimmer>
+              <Provider store={store}>
+                <div>
+                  {content}
+                  {/* Put a navigation bar here for userinformation, menu, logout, etc */}
+                </div>
+              </Provider>
+            </Container>
+          </Dimmer.Dimmable>
+        </Grid>
+      </Container>
     );
   }
 }
-<<<<<<< HEAD
 
-App.childContextTypes = {
-  api: PropTypes.object,
-};
-
-=======
-// App.childContextTypes = {
-//   api: PropTypes.object,
-// };
->>>>>>> bhagya/master
 export default App;
