@@ -18,7 +18,7 @@ class DropdownFix extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
+    if (this.props.value !== nextProps.value || this.props.options !== nextProps.options) {
       const v = nextProps.options.find(o => o.value === nextProps.value);
       this.setState({
         value: v ? v.value : undefined,
