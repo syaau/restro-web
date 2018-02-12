@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 /**
  * A fix for semantic UI's controlled component problem
@@ -29,7 +29,7 @@ class DropdownFix extends Component {
   render() {
     const { value } = this.state;
     return (
-      <Dropdown {...this.props} value={value} />
+      <Form.Dropdown {...this.props} value={value} />
     );
   }
 }
