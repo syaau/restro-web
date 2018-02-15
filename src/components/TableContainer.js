@@ -10,9 +10,9 @@ import moveTable from './../actions/moveTable';
 import selectTabledata from './../actions/selectTabledata';
 import deleteItem from './../actions/deleteItem';
 import rotateTable from './../actions/rotateTable';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import MenuItems from './MenuItems';
 import AddUser from './forms/AddUser';
+import getRecords from '../reducers/getRecords';
 
 const styles = {
   width: 700,
@@ -29,7 +29,7 @@ const tableTarget = {
     const delta = monitor.getDifferenceFromInitialOffset();
     const left = Math.round(item.left + delta.x);
     const top = Math.round(item.top + delta.y);
-    props.moveTable(item.id, left, top);
+   // props.moveTable(item.id, left, top);
   },
 };
 const collect = (connect, monitor) => ({
@@ -101,9 +101,9 @@ class TableContainer extends Component {
       <div>
         <Segment inverted>
           <Menu inverted pointing secondary>
-            <Menu.Item name='table watch' active={activeItem === 'table watch'} onClick={() => this.setState({ showTable: !this.state.showTable, activeItem: 'table watch'})} />
-            <Menu.Item name='menu items' active={activeItem === 'menu items'} onClick={() => this.setState({ menuItems: !this.state.menuItems, activeItem: 'menu items' })} />
-            <Menu.Item name='add user' active={activeItem === 'add user'} onClick={() => this.setState({ addUser: !this.state.addUser, activeItem: 'add user' })} />
+            <Menu.Item name="table watch" active={activeItem === 'table watch'} onClick={() => this.setState({ showTable: !this.state.showTable, activeItem: 'table watch'})} />
+            <Menu.Item name="menu items" active={activeItem === 'menu items'} onClick={() => this.setState({ menuItems: !this.state.menuItems, activeItem: 'menu items' })} />
+            <Menu.Item name="add user" active={activeItem === 'add user'} onClick={() => this.setState({ addUser: !this.state.addUser, activeItem: 'add user' })} />
           </Menu>
         </Segment>
         {this.state.menuItems ? <MenuItems /> : null}
@@ -162,7 +162,7 @@ class TableContainer extends Component {
                     color="green"
                     name="add circle"
                     link
-                    onClick={() => this.props.addTable()}
+                    onClick={() => this.props.api.insertTable({ name: 'maintabl2' })}
                   />
                   {this.state.showTable ? this.showTableSettingController() : <Icon color="green" size="huge" onClick={() => this.showTable()} name="unhide" />}
                 </Table.HeaderCell>
@@ -177,20 +177,19 @@ class TableContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    tables: state.tables,
+    tables: getRecords(state, { schema: 'Table' }),
     currentTableId: state.currentTableId,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  dispatch(selectTabledata('tables'));
-  return {
-    addTable: () => dispatch(insertItemData({ top: 0, left: 0, rotationAngle: 0 }, 'tables')),
-    moveTable: (id, left, top) => dispatch(moveTable({ id, left, top }, 'tables')),
-    deleteTable: id => dispatch(deleteItem(id, 'tables')),
-    rotateTable: (id, rotationAngle) => dispatch(rotateTable({ id, rotationAngle }, 'tables')),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   // dispatch(selectTabledata('tables'));
+//   // return {
+//   //   addTable: () => dispatch(insertItemData({ top: 0, left: 0, rotationAngle: 0 }, 'tables')),
+//   //   moveTable: (id, left, top) => dispatch(moveTable({ id, left, top }, 'tables')),
+//   //   deleteTable: id => dispatch(deleteItem(id, 'tables')),
+//   //   rotateTable: (id, rotationAngle) => dispatch(rotateTable({ id, rotationAngle }, 'tables')),
+//   // };
+// };
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(ItemTypes.TABLE, tableTarget, collect)(TableContainer));
+export default connect(mapStateToProps)(DropTarget(ItemTypes.TABLE, tableTarget, collect)(TableContainer));

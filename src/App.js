@@ -5,8 +5,11 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import Cookies from 'universal-cookie';
 import createSocket, { connectApi } from 'socket.red-client';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 import axios from 'axios';
 
+import config from './config';
 import Api from './Api';
 import Login from './components/Login';
 import Cashier from './screens/Cashier';
@@ -80,12 +83,14 @@ class App extends Component {
 
     if (session) {
       this.validate(session.token);
+    } else {
+      this.state.sessionId = null;
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.sessionId !== this.state.sessionId && this.state.sessionId) {
-      this.socket.open(`ws://localhost:8080/${this.state.sessionId}`);
+      this.socket.open(`${config.WEBSOCKET_URL}${this.state.sessionId}`);
     }
   }
 
@@ -143,7 +148,7 @@ class App extends Component {
 
     return (
       <Container>
-        <Grid stretched>
+        <Grid>
           <Dimmer.Dimmable dimmed={dimmer}>
             <Container>
               <Dimmer active={dimmer}>
@@ -153,7 +158,7 @@ class App extends Component {
                 </Header>
               </Dimmer>
               <Provider store={store}>
-                <div>
+                <div className="wrapper">
                   {content}
                   {/* Put a navigation bar here for userinformation, menu, logout, etc */}
                 </div>
@@ -166,4 +171,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);

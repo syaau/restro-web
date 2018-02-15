@@ -73,7 +73,7 @@ class SchemaModal extends Component {
 
   render() {
     const {
-      title, open, trigger, form, onClose, closeOnSave, ...other
+      title, open, size, trigger, form, onClose, closeOnSave, ...other
     } = this.props;
 
     const { message, messageType } = this.state;
@@ -81,7 +81,7 @@ class SchemaModal extends Component {
     const Form = form;
 
     return (
-      <Modal open={open} trigger={trigger}>
+      <Modal dimmer={false} open={open} size={size} trigger={trigger}>
         <Modal.Header>{title}</Modal.Header>
         <Modal.Content>
           { message &&
@@ -95,8 +95,8 @@ class SchemaModal extends Component {
           <Form {...other} onSuccess={this.onSave} __submit__={this.submitButton()} />
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={onClose} negative>Close</Button>
           <Button onClick={this.submit} primary>Save</Button>
+          <Button onClick={onClose} negative>Close</Button>
         </Modal.Actions>
       </Modal>
     );
@@ -110,6 +110,7 @@ SchemaModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   form: PropTypes.func.isRequired,
   closeOnSave: PropTypes.bool,
+  size: PropTypes.string.isRequired,
 };
 
 SchemaModal.defaultProps = {

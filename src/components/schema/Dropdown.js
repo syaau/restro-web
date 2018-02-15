@@ -29,7 +29,7 @@ class DropdownFix extends Component {
   render() {
     const { value } = this.state;
     return (
-      <Form.Dropdown {...this.props} value={value} />
+      <Form.Dropdown {...this.props} value={value} search selection />
     );
   }
 }

@@ -6,8 +6,8 @@ import { ItemType } from './dropdowns';
 const ItemForm = props => (
   <SchemaForm {...props} schema="Item">
     <ItemType name="itemTypeId" label="Type" />
-    <SchemaForm.Input name="name" label="Name" placeholder="Item name" />
-    <SchemaForm.Input name="unit" label="Unit" placeholder="ml, plate, ..." />
+    <SchemaForm.Input name="name" label="Name" placeholder="Item name" required />
+    <SchemaForm.Input name="unit" label="Unit" placeholder="ml, plate, ..." required />
     <SchemaForm.Input
       name="threshold"
       label="Threshold"

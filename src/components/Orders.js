@@ -2,23 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Icon, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-
-import DeleteConfirmation from './DeleteConfirmation';
 import billPrint from './../actions/billPrint';
 import deleteOrderItem from './../actions/deleteItem';
-import OrderItemFormModal from './OrderItemFormModal';
+import OrderItem from './forms/OrderItem';
 import insertOrderItems from './../actions/insertItemData';
 
-const OrderRow = connect((state, ownProps) => ({
-  menuItems: state.items.reduce((res, item) => ({ ...res, [item.id]: item }), {}),
-  order: {
-    ...state.orders.find(o => o.id === ownProps.id),
-    items: state.schema.OrderItem.filter(o => o.orderId === ownProps.id),
-    amount: state.OrderItems.filter(o => o.orderId === ownProps.id).reduce((sum, orderItem) => (
-      sum + (orderItem.quantity * orderItem.rate)
-    ), 0),
-  },
-}))(({
+const OrderRow = ({
   menuItems, order, onEdit, onDelete, onPrint,
 }) => (
   <Table.Row className="table-row-style">
@@ -27,8 +16,8 @@ const OrderRow = connect((state, ownProps) => ({
     </Table.Cell>
     <Table.Cell>
       {
-      //  console.log('Menu items in Curret watch',menuItems[1].name)
-        order.items.map(it => `${menuItems[it.itemId].name} (${it.quantity})`).join(', ')
+      console.log('Menu items in Curret watch', order)
+        // order.items.map(it => `${menuItems[it.itemId].name} (${it.qty})`).join(', ')
       }
     </Table.Cell>
     <Table.Cell>
@@ -56,7 +45,7 @@ const OrderRow = connect((state, ownProps) => ({
       />
     </Table.Cell>
   </Table.Row>
-));
+);
 
 class Orders extends Component {
   constructor(props) {
@@ -91,6 +80,7 @@ class Orders extends Component {
               <OrderRow
                 key={order.id}
                 id={order.id}
+                order={order}
                 onEdit={orderId => this.setState({ orderForm: orderId })}
                 onPrint={orderId => this.setState({ printOrder: orderId })}
               /> : null))
@@ -100,6 +90,7 @@ class Orders extends Component {
             <Table.Row textAlign="center">
               <Table.HeaderCell colSpan="6">
                 <Button
+                  primary
                   color="green"
                   labelPosition="right"
                   icon="add circle"
@@ -110,12 +101,13 @@ class Orders extends Component {
             </Table.Row>
           </Table.Footer>
         </Table>
-        <OrderItemFormModal
+        <OrderItem
+          api={this.props.api}
           visible={this.state.orderForm}
           orderId={this.state.orderForm === true ? null : this.state.orderForm}
           onClose={() => this.setState({ orderForm: false })}
         />
-        <DeleteConfirmation
+        {/* <DeleteConfirmation
           visible={this.state.printOrder !== null}
           message={<p>Print Bill {this.state.printOrder}</p>}
           header="Fudo bill"
@@ -127,7 +119,7 @@ class Orders extends Component {
             this.setState({ printOrder: null });
           }
           }}
-        />
+        /> */}
       </div>
     );
   }

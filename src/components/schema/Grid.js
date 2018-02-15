@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Table, Message, Button } from 'semantic-ui-react';
+import { Table, Message, Button, Popup } from 'semantic-ui-react';
 
 import getRecords from '../../reducers/getRecords';
 
@@ -9,16 +9,24 @@ class SchemaGrid extends Component {
   renderHeader = field => (
     <Table.HeaderCell key={field.name} collapsing>{field.header}</Table.HeaderCell>
   );
-
   renderRow = (record) => {
     const { fields, actionButtons } = this.props;
     return (
-      <Table.Row key={record.id}>
+      <Table.Row
+        key={record.id}
+        style={{ background: record.threshold > record.stock ? '#ff6961' : '' }}
+      >
         { fields.map(field => this.renderCell(field, record)) }
         { actionButtons.length > 0 && (
           <Table.Cell>
-            {actionButtons.map(({ icon, action }) => (
-              <Button key={icon} onClick={() => action(record)} icon={icon} />
+            {actionButtons.map(({
+               icon, action, color, hoverMessage,
+              }) => (
+                <Popup
+                  trigger={<Button color={color} key={icon} onClick={() => action(record)} icon={icon} />}
+                  content={hoverMessage}
+                  hideOnScroll
+                />
             ))}
           </Table.Cell>
         )}
@@ -42,7 +50,7 @@ class SchemaGrid extends Component {
       <Table celled>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell colSpan={count}>{title}</Table.HeaderCell>
+            <Table.HeaderCell textAlign="center" colSpan={count}>{title}</Table.HeaderCell>
           </Table.Row>
           <Table.Row>
             { fields.map(this.renderHeader) }
@@ -88,7 +96,7 @@ SchemaGrid.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  records: getRecords(state, ownProps),
+  records: ownProps.schema === 'Item' ? getRecords(state, ownProps).filter(item => item.threshold) : getRecords(state, ownProps),
 });
 
 export default connect(mapStateToProps)(SchemaGrid);

@@ -1,52 +1,106 @@
-import React,{Component} from 'react';
-import { Label, Input, Icon } from 'semantic-ui-react';
-import PropsTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Label, Input, Grid, Dropdown, Button } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
-class AddCustomItem extends Component {
+class AddOrderItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemType: 'custom',
+      menuItemOptions: Object.keys(props.menuItems).map(id => ({
+        value: id,
+        text: props.menuItems[id].name,
+      })),
     };
   }
 
-  changeInputHandler = (field) => {
-    return (e, data) => (
+  changeInputHandler = field => (e, data) => {
+    this.setState({
+      [field]: data.value,
+    });
+  }
+
+  changeMenuItem = (e, data) => {
+    const menuItem = this.props.menuItems[data.value];
+    if (menuItem) {
       this.setState({
-        [field]: data.value,
-      })
-    );
-}
+        menuItemId: data.value,
+        rate: menuItem.price,
+      });
+    } else {
+      this.setState({
+        menuItemId: data.value,
+        rate: 0,
+      });
+    }
+  }
+
+  handleAddItem = (e, data) => {
+    this.setState(prevState => ({
+      menuItemOptions: prevState.menuItemOptions.concat({
+        value: data.value,
+        text: data.value,
+      }),
+    }));
+  }
+
+  handleSubmit = () => {
+    const res = {
+      menuItemId: this.state.menuItemId,
+      qty: this.state.qty,
+      rate: this.state.rate,
+    };
+
+    if (res.qty && res.menuItemId && res.rate) {
+      this.reset();
+      this.props.onSuccess(res);
+    }
+  }
+
+  reset() {
+    this.setState({
+      menuItemId: '',
+      qty: 1,
+      rate: '',
+    });
+  }
 
   render() {
-    console.log(this.state);
     return (
-      <div className="add-custom-item">
-        <div>
-          <Label pointing="right" size="big"> Item </Label>
-          <Input type="text" value={this.state.name} onChange={this.changeInputHandler('name')}  />
-        </div>
-        <div>
-          <Label pointing="right" size="big">Qty:</Label>
-          <Input type="number" value={this.state.quantity} onChange={this.changeInputHandler('quantity')} />
-        </div>
-        <div>
-          <Label pointing="right" size="big">Rate</Label>
-          <Input type="number" value={this.state.price} onChange={this.changeInputHandler('price')} />
-        </div>
-        <Icon
-          size="big"
-          link
-          name="add circle"
-          color="green"
-          onClick={() => this.props.onSuccess(this.state)}
-        />
-      </div>
+      <Grid.Column width={16}>
+        <Grid.Row>
+          <Label pointing="right" size="mini"> Item </Label>
+          <Dropdown
+            size="mini"
+            options={this.state.menuItemOptions}
+            search
+            onChange={this.changeMenuItem}
+            value={this.state.menuItemId}
+            selection
+            allowAdditions
+            onAddItem={this.handleAddItem}
+          />
+          <Label pointing="right" size="mini">Qty:</Label>
+          <Input size="mini" type="number" value={this.state.qty} onChange={this.changeInputHandler('qty')} />
+
+          <Label pointing="right" size="mini">Rate</Label>
+          <Input size="mini" type="number" value={this.state.rate} onChange={this.changeInputHandler('rate')} />
+
+          <Button
+            style={{ marginLeft: '10px' }}
+            color="blue"
+            icon="add circle"
+            link
+            onClick={this.handleSubmit}
+          />
+        </Grid.Row>
+      </Grid.Column>
     );
   }
 }
 
-AddCustomItem.propTypes = {
-  onSuccess: PropsTypes.func.isRequired,
+AddOrderItem.propTypes = {
+  onSuccess: PropTypes.func.isRequired,
+  menuItems: PropTypes.shape({}).isRequired,
 };
-export default AddCustomItem;
+
+export default AddOrderItem;
