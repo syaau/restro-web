@@ -1,11 +1,16 @@
 const reducer = (state = [], action) => {
+  console.log('Reducer', action);
   switch (action.type) {
     case 'SCHEMA.POPULATE':
       return action.payload;
     case 'SCHEMA.INSERT':
       return state.concat(action.payload);
-    case 'SCHEMA.UPDATE':
-      return state.filter(s => (s.id !== action.payload.id ? s : { ...s, ...action.payload }));
+    case 'SCHEMA.UPDATE': {
+      const res = state.map(s => (s.id !== action.payload.id ? s : { ...s, ...action.payload }));
+      console.log(res);
+      return res;
+
+    }
     case 'SCHEMA.DELETE':
       return state.filter(s => s.id !== action.payload.id);
     default:

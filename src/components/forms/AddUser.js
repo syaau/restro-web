@@ -2,7 +2,7 @@ import { Button } from 'semantic-ui-react';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import SchemaForm from './SchemaForm';
-import AddItem from './AddItem';
+import AddItem from './Item';
 import SchemaModal from './SchemaModal';
 
 class AddUser extends Component {

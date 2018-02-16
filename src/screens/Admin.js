@@ -1,47 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Segment } from 'semantic-ui-react';
-import { SchemaModal, SchemaGrid } from '../components/schema';
-import MenuItemForm from '../components/forms/MenuItem';
+import { connect } from 'react-redux';
+import { Grid } from 'semantic-ui-react';
+import StockWatch from './../components/StockWatch';
+import Orders from './../components/Orders';
+import ExtraMenu from './../components/TableContainer';
 
 class Admin extends Component {
-  state = { addMenuItem: false };
-
-  handleOpen = () => this.setState({ addMenuItem: true });
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
 
   render() {
-    const { addMenuItem } = this.state;
     const { api } = this.props;
-
     return (
-      <div>
-        <SchemaGrid
-          schema="Item"
-          fields={[
-            { name: 'name', header: 'Name' },
-            { name: 'stock', header: 'Stock' },
-            { name: 'threshold', header: 'Threshold' },
-          ]}
-          title="Stock Watch"
-          emptyMessage="No items in database"
-          actionButtons={[
-            { icon: 'print', action: () => {} },
-          ]}
-          renderFooter={() => (
-            <Segment>
-              <Button primary>New Item</Button>
-              <Button primary floated="right" onClick={this.handleOpen}>New Menu Item</Button>
-            </Segment>
-          )}
-        />
-        { addMenuItem && <SchemaModal
-          remoteApi={api.insertItem}
-          title="New Menu Item"
-          open={addMenuItem}
-          form={MenuItemForm}
-          onClose={() => this.setState({ addMenuItem: false })}
-        />}
-      </div>
+      <Grid style={{ marginTop: '100px' }} centered verticalAlign="top" columns={3} rows={2}>
+        <Grid.Row>
+          <Grid.Column style={{ margin: '50px', minWidth: '400px' }}>
+            <Orders api={api} />
+          </Grid.Column>
+          <Grid.Column style={{ margin: '50px', minWidth: '400px' }}>
+            <StockWatch api={api} />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row style={ {marginTop: '200px', minWidth: '1000px'}}>
+          <ExtraMenu api={api} />
+        </Grid.Row>
+      </Grid>
     );
   }
 }
@@ -50,4 +37,4 @@ Admin.propTypes = {
   api: PropTypes.shape({}).isRequired,
 };
 
-export default Admin;
+export default connect()(Admin);

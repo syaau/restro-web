@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-const DeleteConfirmation = ({
+const Confirmation = ({
   visible,
   onClose,
   header,
@@ -27,7 +27,7 @@ const DeleteConfirmation = ({
         No
       </Button>
       <Button
-        positive
+        primary
         labelPosition="right"
         icon="checkmark"
         content="Yes"
@@ -37,11 +37,11 @@ const DeleteConfirmation = ({
   </Modal>
 );
 
-DeleteConfirmation.propTypes = {
+Confirmation.propTypes = {
   visible: PropTypes.bool.isRequired,
   message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   header: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default DeleteConfirmation;
+export default Confirmation;

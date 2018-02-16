@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SchemaForm from './SchemaForm';
-import SchemaModal from './SchemaModal';
+import { Label } from 'semantic-ui-react';
+import { SchemaForm, SchemaLabel } from '../schema';
 
-const PurchaseItem = ({ item, ...other }) => (
-  <SchemaModal model="purchase" title={`Add ${item.name} stock`} defaultValues={{ itemId: item.id }} {...other}>
-    <div className="menu-item-form-quantity">
-      <SchemaForm.Input type="number" required label="Qty" placeholder="Qty" name="qty" />
-      <div className="menu-item-custom-label">
-        <SchemaForm.Label textField="unit" model="items" link="itemId" />
-      </div>
-    </div>
-  </SchemaModal>
+const PurchaseItem = ({ item, ...props }) => (
+  <SchemaForm {...props} schema="Purchase">
+    <SchemaForm.Input type="number" required label="Qty" placeholder="Enter quantity here..." name="qty" labelPosition="right">
+      <input />
+      <SchemaLabel name="itemId" schema="Item" field="unit" as={Label} />
+    </SchemaForm.Input>
+  </SchemaForm>
 );
 
 PurchaseItem.propTypes = {

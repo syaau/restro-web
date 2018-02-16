@@ -3,7 +3,7 @@ import { MenuItem, Table, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import deleteItem from './../actions/deleteItem';
 import PropsTypes from 'prop-types';
-import DeleteConfirmation from './DeleteConfirmation';
+import Confirmation from './forms/Confirmation';
 
 class  MenuItems extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class  MenuItems extends Component {
       }
           </Table.Body>
         </Table>
-        <DeleteConfirmation
+        <Confirmation
           visible={!!this.state.deleteItemId}
           message="Do you want do delete "
           header="Delete Item.."

@@ -45,10 +45,9 @@ class SchemaForm extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log('form state data', JSON.stringify(this.state));
     const { schema, id, data } = this.state;
     const { onSuccess, remoteApi } = this.props;
-
     this.setState({ loading: true });
     const res = await remoteApi(data, id, schema);
     this.setState({ loading: false });
@@ -62,6 +61,7 @@ class SchemaForm extends Component {
       id, initialData, schema, children, onSuccess, remoteApi, __submit__, ...other
     } = this.props;
     const { loading } = this.state;
+    console.log(this.state);
 
     return (
       <DimmerDimmable dimmed={!!loading}>
