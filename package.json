@@ -23,8 +23,7 @@
     "universal-cookie": "^2.1.2"
   },
   "scripts": {
-    "startFudoserver": "json-server --watch ./src/config/fudodb.json --port 3001",
-    "start": " npm run startFudoserver | react-scripts start",
+    "start": " react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
