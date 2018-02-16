@@ -12,12 +12,11 @@ class  MenuItems extends Component {
       deleteItemId: null,
     };
   }
-
   render() {
     console.log('menu items id', this.state);
     return (
-      <div>
-        <Table celled selectable>
+      <div style={{width: '700px'}}>
+        <Table celled>
           <Table.Header>
             <Table.Row textAlign="center">
               <Table.HeaderCell colSpan="8"><h2>Menu Items</h2></Table.HeaderCell>
@@ -29,12 +28,10 @@ class  MenuItems extends Component {
               <Table.HeaderCell>Item Name</Table.HeaderCell>
               <Table.HeaderCell>Quantity</Table.HeaderCell>
               <Table.HeaderCell>Price</Table.HeaderCell>
-              <Table.HeaderCell>Edit</Table.HeaderCell>
               <Table.HeaderCell>Delete</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {/* {console.log('items name'), props.items.find(item => item.id === 1)} */}
             {this.props.menuItems.map(menuitem => (
               <Table.Row
                 key={menuitem.id}
@@ -43,15 +40,6 @@ class  MenuItems extends Component {
                 <Table.Cell>{this.props.items.find(item => item.id === menuitem.itemId).name}</Table.Cell>
                 <Table.Cell>{menuitem.qty}</Table.Cell>
                 <Table.Cell> {menuitem.price}</Table.Cell>
-                <Table.Cell>
-                  <Icon
-                    size="large"
-                    color="green"
-                    name="edit"
-                    link
-                    onClick={() => this.toggleItemFormModal(menuitem.id)}
-                  />
-                </Table.Cell>
                 <Table.Cell>
                   <Icon
                     size="large"
@@ -69,9 +57,9 @@ class  MenuItems extends Component {
         <Confirmation
           visible={!!this.state.deleteItemId}
           message="Do you want do delete "
-          header="Delete Item.."
+          header="Delete Menu Item.."
           onClose={(remove) => {
-            if (remove) this.props.deleteItem(this.state.deleteItemId, 'menuItems');
+            if (remove) this.props.api.deleteMenuItem(this.state.deleteItemId);
             this.setState({ deleteItemId: null });
         }}
         />
@@ -87,8 +75,8 @@ MenuItems.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    menuItems: state.menuItems,
-    items: state.items,
+    menuItems: state.schema.MenuItem,
+    items: state.schema.Item,
   };
 };
 

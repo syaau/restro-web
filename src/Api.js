@@ -5,10 +5,14 @@ class Api {
   purchaseItem(data) { }
   updateItem(object, id) { }
   insertMenuItem(object) { }
+  deleteMenuItem(id) {}
   reconcile(itemStock) { }
   insertTable(table) {}
+  updateTable(obj, id) {}
+  deleteTable(id) {}
   placeOrder(tableId, orderItems, discount = 0, remarks = '') {}
   updateOrder(orderId, tableId, orderItems, discount = 0, remarks = '') {}
+  insertUser(user) {}
 }
 
 export default Api;

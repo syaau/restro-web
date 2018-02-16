@@ -88,7 +88,7 @@ class TableObj extends Component  {
             size="big"
             link
             name="table"
-            onClick={() => { this.props.updateCurrentTableId(id); this.changeBackGroundColor(); }}
+            onClick={() => { this.props.currentTableId(id); this.changeBackGroundColor(); }}
           />
           <h3> No: {id}</h3>
           {children}
@@ -96,14 +96,10 @@ class TableObj extends Component  {
     }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentTableId: state.currentTableId,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateCurrentTableId: id => dispatch(updateCurrentTableId(id)),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(DragSource(ItemTypes.TABLE, tableSource, collect)(TableObj));
+// const mapStateToProps = (state) => {
+//   return {
+//     currentTableId: state.currentTableId,
+//   };
+// };
+
+export default DragSource(ItemTypes.TABLE, tableSource, collect)(TableObj);

@@ -19,7 +19,7 @@ class SchemaModal extends Component {
     const { onClose, closeOnSave } = this.props;
 
     if (closeOnSave) {
-      onClose(true);
+      onClose(false);
     }
   }
 

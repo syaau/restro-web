@@ -166,8 +166,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  //updateOrder: (orderId, tableNo, orderItems) => dispatch(updateOrder(orderId, tableNo, orderItems)),
- // placeOrder: (tableNo, orderItems) => dispatch(placeOrder(tableNo, orderItems)),
   insertItem: (data, tableName) => dispatch(insertItem(data, tableName)),
 });
 

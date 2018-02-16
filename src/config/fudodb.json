@@ -136,13 +136,6 @@
       "quantity": "1",
       "rate": 120,
       "id": 7
-    },
-    {
-      "orderId": 5,
-      "itemId": 6,
-      "quantity": "12",
-      "rate": "a",
-      "id": 8
     }
   ],
   "EODReport": [],

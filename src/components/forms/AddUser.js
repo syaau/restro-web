@@ -1,53 +1,26 @@
-import { Button } from 'semantic-ui-react';
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import SchemaForm from './SchemaForm';
-import AddItem from './Item';
-import SchemaModal from './SchemaModal';
+import React from 'react';
+import { SchemaForm } from '../schema';
 
-class AddUser extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      addedItemId: 2,
-      showAddItem: false,
-    };
-  }
-
-  render() {
-    const { ...other } = this.props;
-    return (
-      <SchemaModal model="users" title="Enter Users Details" {...other}>
-        <div className="drop-down-menu">
-          <SchemaForm.DropDown
-            required
-            label="Select Type"
-            options={
-              [
-                { value: 'super', text: 'super' },
-                { value: 'normal', text: 'normal' },
-              ]
-            }
-            optionsplaceholder="Type"
-            name="userType"
-            search
-            selection
-          />
-        </div>
-        <div className="form-input-field">
-          <SchemaForm.Input labelPosition="left" required label="Username" placeholder="Username" name="username" />
-          <div className="menu-item-form-quantity">
-            <SchemaForm.Input type="text" required label="PassWord" placeholder="PassWord" name="password" />
-          </div>
-        </div>
-      </SchemaModal>
-    );
-  }
-}
-
-AddUser.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
-
+const AddUser = props => (
+  <SchemaForm {...props} schema="User">
+    <SchemaForm.Dropdown
+      required
+      label="Select Type"
+      options={
+        [
+          { value: 'Waiter', text: 'Waiter' },
+          { value: 'Cashier', text: 'Cashier' },
+          { value: 'Admin', text: 'Admin' },
+        ]
+      }
+      optionsplaceholder="Type"
+      name="role"
+      search
+      selection
+    />
+    <SchemaForm.Input name="name" label="Name" placeholder="Name..." required />
+    <SchemaForm.Input name="username" label="Username" placeholder="Username, ..." required />
+    <SchemaForm.Input name="password" label="Password" placeholder="Password, ..." required />
+  </SchemaForm>
+);
 export default AddUser;

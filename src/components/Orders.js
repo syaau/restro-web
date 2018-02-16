@@ -129,13 +129,6 @@ const mapStateToProps = state => ({
   orders: state.schema.Order,
 });
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     billPrint: orderId => dispatch(billPrint(orderId)),
-//     deleteOrderItem: itemId => dispatch(deleteOrderItem(itemId, 'orderItems')),
-//     insertOrderItem: orderItems => dispatch(insertOrderItems(orderItems, 'orderItems')),
-//   };
-// };
 
 Orders.propTypes = {
   orders: PropTypes.arrayOf(PropTypes.shape({

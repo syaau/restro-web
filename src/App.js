@@ -7,7 +7,6 @@ import Cookies from 'universal-cookie';
 import createSocket, { connectApi, XHRValidator } from 'socket.red-client';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
-
 import config from './config';
 import Api from './Api';
 import Login from './components/Login';

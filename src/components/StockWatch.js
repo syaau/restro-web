@@ -33,6 +33,17 @@ class StockWatch extends Component {
   render() {
     const { addMenuItem, showPurchase } = this.state;
     const { api } = this.props;
+    const actionButtons = [];
+    if (this.props.allowPurchase) {
+      actionButtons.push({
+        icon: 'add circle', color: 'blue', hoverMessage: 'Add Stock', action: record => this.setState({ showPurchase: !this.state.showPurchase, itemRecord: record })
+      });
+    }
+    if (this.props.allowItemRemove) {
+      actionButtons.push({
+        icon: 'delete', color: 'red', hoverMessage: 'Delete Item', action: record => this.deleteItemHandler(record.id),
+      });
+    }
     return (
       <SchemaGrid
         schema="Item"
@@ -43,14 +54,7 @@ class StockWatch extends Component {
         ]}
         title="Stock Watch"
         emptyMessage="No items in database"
-        actionButtons={[
-          {
-            icon: 'add circle', color: 'blue', hoverMessage: 'Add Stock', action: record => this.setState({ showPurchase: !this.state.showPurchase, itemRecord: record })
-          },
-          {
-            icon: 'delete', color: 'red', hoverMessage: 'Delete Item', action: record => this.deleteItemHandler(record.id),
-          },
-        ]}
+        actionButtons={actionButtons}
         renderFooter={() => (
           <Segment textAlign="center">
             <Grid centered>
@@ -65,13 +69,13 @@ class StockWatch extends Component {
                   form={MenuItemForm}
                   onClose={() => this.setState({ addMenuItem: false })}
                 />
-                <Button
+                { this.props.allowReconcile && <Button
                   labelPosition="right"
                   icon="edit"
                   primary
                   onClick={() => this.setState({ showReconciliationStock: !this.showReconciliationStock })}
                   content="Reconcile"
-                />
+                /> }
               </Grid.Row>
             </Grid>
             {this.state.showconfirmation !== null ?
@@ -113,11 +117,20 @@ class StockWatch extends Component {
 }
 
 StockWatch.propTypes = {
+  allowReconcile: PropTypes.bool,
+  allowItemRemove: PropTypes.bool,
+  allowPurchase: PropTypes.bool,
   api: PropTypes.shape({
     deleteItem: PropTypes.func,
     reconcile: PropTypes.func,
   }).isRequired,
 };
+
+StockWatch.defaultProps = {
+  allowItemRemove: false,
+  allowPurchase: false,
+  allowReconcile: false,
+}
 
 
 export default StockWatch;
