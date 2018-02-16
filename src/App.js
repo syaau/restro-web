@@ -4,10 +4,9 @@ import { Container, Dimmer, Header, Icon, Grid } from 'semantic-ui-react';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import Cookies from 'universal-cookie';
-import createSocket, { connectApi } from 'socket.red-client';
+import createSocket, { connectApi, XHRValidator } from 'socket.red-client';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
-import axios from 'axios';
 
 import config from './config';
 import Api from './Api';
@@ -24,7 +23,6 @@ const cookies = new Cookies();
 const store = createStore(combineReducers({
   schema: schemaReducer('User', 'ItemType', 'Item', 'MenuItem', 'Order', 'OrderItem', 'Table'),
 }), applyMiddleware(thunk));
-
 
 function getUserScreen(role) {
   switch (role) {
@@ -46,12 +44,12 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    const session = cookies.get(SESSION_KEY);
+    const sessionId = cookies.get(SESSION_KEY);
 
     this.state = {
       user: null,
       offline: true,
-      sessionId: -1,
+      sessionId,
     };
 
     // Use session id to open websocket connection
@@ -61,16 +59,18 @@ class App extends Component {
     this.socket = createSocket(store.dispatch, {
       erroRetryInterval: 500,
       responseTimeoutInterval: 200,
-    });
+    }, undefined, undefined, XHRValidator);
 
     this.api = connectApi(Api, this.socket);
 
-    this.socket.on('error', () => {
-      this.validate(this.state.sessionId);
+    this.socket.on('error', (e) => {
+      // eslint-disable-next-line no-console
+      console.error('Socket error', e);
     });
 
-    this.socket.on('connect', () => {
+    this.socket.on('connect', (user) => {
       this.setState({
+        user,
         offline: false,
       });
     });
@@ -80,11 +80,11 @@ class App extends Component {
         offline: true,
       });
     });
+  }
 
-    if (session) {
-      this.validate(session.token);
-    } else {
-      this.state.sessionId = null;
+  componentDidMount() {
+    if (this.state.sessionId) {
+      this.socket.open(`${config.WEBSOCKET_URL}${this.state.sessionId}`);
     }
   }
 
@@ -100,7 +100,7 @@ class App extends Component {
       sessionId: user.token,
     });
 
-    cookies.set(SESSION_KEY, user);
+    cookies.set(SESSION_KEY, user.token);
   }
 
   onLogout = () => {
@@ -114,33 +114,13 @@ class App extends Component {
     this.socket.close();
   }
 
-  async validate(sessionId) {
-    try {
-      const response = await axios({
-        url: `/validate/${sessionId}`,
-        method: 'post',
-      });
-      this.setState({
-        sessionId,
-        user: response.data,
-      });
-    } catch (err) {
-      this.setState({
-        sessionId: null,
-        user: null,
-      });
-    }
-  }
-
   render() {
-    const { user, offline, sessionId } = this.state;
+    const { user, offline } = this.state;
 
     let content = null;
-    const dimmer = !!(offline && sessionId);
-    if (!sessionId) {
+    const dimmer = user && offline;
+    if (!user) {
       content = <Login onLogin={this.onLogin} />;
-    } else if (!user) {
-      content = 'Loading...';
     } else {
       const Screen = getUserScreen(user.role);
       content = <Screen user={user} onLogout={this.onLogout} api={this.api} />;
