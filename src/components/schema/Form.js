@@ -51,6 +51,7 @@ class SchemaForm extends Component {
     this.setState({ loading: false });
     if (onSuccess) {
       onSuccess(res);
+      this.setState({ data: this.props.initialData });
     }
   }
 

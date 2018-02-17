@@ -6,7 +6,7 @@ import { Modal, Button, Message } from 'semantic-ui-react';
 class SchemaModal extends Component {
   state = {
     message: null,
-    messageType: '',
+    messageType: 'success',
   };
 
   componentWillUnmount() {
@@ -17,7 +17,7 @@ class SchemaModal extends Component {
 
   onSave = () => {
     const { onClose, closeOnSave } = this.props;
-
+    this.showMessage('Successfully submitted', 'success');
     if (closeOnSave) {
       onClose(false);
     }
@@ -44,7 +44,7 @@ class SchemaModal extends Component {
     this.timer = setTimeout(() => {
       this.timer = null;
       this.setState({
-        message: '',
+        message: null,
         messageType: null,
       });
     }, 5000);
@@ -92,7 +92,7 @@ class SchemaModal extends Component {
               content={message}
             />
           }
-          <Form {...other} onSuccess={this.onSave} __submit__={this.submitButton()} />
+          <Form {...other} onSuccess={data => this.onSave(data)} __submit__={this.submitButton()} />
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.submit} primary>Save</Button>
@@ -115,7 +115,7 @@ SchemaModal.propTypes = {
 
 SchemaModal.defaultProps = {
   trigger: undefined,
-  closeOnSave: true,
+  closeOnSave: false,
 };
 
 export default SchemaModal;

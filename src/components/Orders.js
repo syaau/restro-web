@@ -62,7 +62,7 @@ class Orders extends Component {
         <Table celled selectable>
           <Table.Header>
             <Table.Row textAlign="center">
-              <Table.HeaderCell colSpan="6"><h2>Current Orders</h2></Table.HeaderCell>
+              <Table.HeaderCell colSpan="6"><h1>Current Orders</h1></Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Header>

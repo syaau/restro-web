@@ -83,6 +83,7 @@ class StockWatch extends Component {
                   remoteApi={this.props.api.updateItem}
                   title="Update Item"
                   api={api}
+                  closeOnSave
                   id={this.state.editItemId}
                   size="mini"
                   open={this.state.editItemId}
@@ -124,6 +125,7 @@ class StockWatch extends Component {
               remoteApi={api.purchaseItem}
               title={ `Add ${this.state.itemRecord.name}  Stock`}
               size="mini"
+              closeOnSave
               initialData={{ itemId: this.state.itemRecord.id }}
               open={showPurchase}
               form={PurchaseItem}

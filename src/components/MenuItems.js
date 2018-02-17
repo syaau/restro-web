@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Icon } from 'semantic-ui-react';
+import { Table, Icon, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropsTypes from 'prop-types';
 import { SchemaModal } from '../components/schema';
@@ -68,6 +68,11 @@ class MenuItems extends Component {
       ))
       }
           </Table.Body>
+          <Table.Footer>
+            <Table.Row textAlign="center">
+              <Table.HeaderCell colSpan="8" />
+            </Table.Row>
+          </Table.Footer>
         </Table>
         <Confirmation
           visible={!!this.state.deleteItemId}
@@ -83,6 +88,7 @@ class MenuItems extends Component {
           title="Update Menu Item"
           id={this.state.updateMenuItem}
           size="mini"
+          closeOnSave
           open={this.state.updateMenuItem}
           form={MenuItemForm}
           onClose={() => this.setState({ updateMenuItem: null })}

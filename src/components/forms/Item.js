@@ -10,6 +10,7 @@ const ItemForm = props => (
     <SchemaForm.Input name="unit" label="Unit" placeholder="ml, plate, ..." required />
     <SchemaForm.Input
       name="threshold"
+      type="number"
       label="Threshold"
       placeholder="Use 0 to disaable warning"
       labelPosition="right"

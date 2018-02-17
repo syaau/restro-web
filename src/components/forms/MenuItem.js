@@ -50,11 +50,11 @@ render() {
         </Grid.Row>
       </Grid>
       <SchemaForm.Input name="name" label="Name" placeholder="Menu Item Name" required />
-      <SchemaForm.Input name="qty" label="Item Qty" placeholder="Item Qty" labelPosition="right" required>
+      <SchemaForm.Input type="number" name="qty" label="Item Qty" placeholder="Item Qty" labelPosition="right" required>
         <input />
         <SchemaLabel name="itemId" schema="Item" field="unit" as={Label} />
       </SchemaForm.Input>
-      <SchemaForm.Input name="price" label="Price" placeholder="Menu price" required />
+      <SchemaForm.Input type="number" name="price" label="Price" placeholder="Menu price" required />
     </SchemaForm>
   );
 }
