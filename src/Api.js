@@ -5,6 +5,7 @@ class Api {
   purchaseItem(data) { }
   updateItem(object, id) { }
   insertMenuItem(object) { }
+  updateMenuItem(menuitem, id) {}
   deleteMenuItem(id) {}
   reconcile(itemStock) { }
   insertTable(table) {}

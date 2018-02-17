@@ -37,7 +37,7 @@ render() {
             />
           </Grid.Column>
           <Grid.Column verticalAlign="bottom">
-            <SchemaModal
+            {this.props.showAddItem &&  <SchemaModal
               trigger={<Button labelPosition="right" icon="add circle" primary onClick={this.handleItem} content="Item" />}
               size="mini"
               remoteApi={this.props.api.insertItem}
@@ -45,7 +45,7 @@ render() {
               open={this.state.addItem}
               form={ItemForm}
               onClose={() => this.setState({ addItem: false })}
-            />
+              />}
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -62,7 +62,8 @@ render() {
 
 
 MenuItem.propTypes = {
-  api: PropTypes.shape({}).isRequired,
+  showAddItem: PropTypes.bool.isRequired,
+  api: PropTypes.shape({insertItem: PropTypes.func }).isRequired,
 
 };
 export default MenuItem;

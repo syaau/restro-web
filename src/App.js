@@ -139,7 +139,6 @@ class App extends Component {
               <Provider store={store}>
                 <div className="wrapper">
                   {content}
-                  {/* Put a navigation bar here for userinformation, menu, logout, etc */}
                 </div>
               </Provider>
             </Container>

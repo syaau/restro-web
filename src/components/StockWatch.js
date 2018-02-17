@@ -5,6 +5,7 @@ import { SchemaModal, SchemaGrid } from '../components/schema';
 import MenuItemForm from '../components/forms/MenuItem';
 import Confirmation from './forms/Confirmation';
 import PurchaseItem from './forms/PurchaseItem';
+import AddItem from './forms/Item';
 import ReconciliationStock from './forms/ReconciliationStock';
 
 
@@ -16,6 +17,7 @@ class StockWatch extends Component {
       showconfirmation: null,
       showPurchase: false,
       itemRecord: null,
+      editItemId: null,
       showReconciliationStock: false,
     };
   }
@@ -44,6 +46,11 @@ class StockWatch extends Component {
         icon: 'delete', color: 'red', hoverMessage: 'Delete Item', action: record => this.deleteItemHandler(record.id),
       });
     }
+    if (this.props.allowItemRemove) {
+      actionButtons.push({
+        icon: 'edit', color: 'blue', hoverMessage: 'Edit Item', action: record => this.setState({editItemId: record.id}),
+      });
+    }
     return (
       <SchemaGrid
         schema="Item"
@@ -64,11 +71,24 @@ class StockWatch extends Component {
                   remoteApi={api.insertMenuItem}
                   title="New Menu Item"
                   api={api}
+                  showAddItem
                   size="mini"
                   open={addMenuItem}
                   form={MenuItemForm}
                   onClose={() => this.setState({ addMenuItem: false })}
                 />
+
+                {this.state.editItemId &&
+                <SchemaModal
+                  remoteApi={this.props.api.updateItem}
+                  title="Update Item"
+                  api={api}
+                  id={this.state.editItemId}
+                  size="mini"
+                  open={this.state.editItemId}
+                  form={AddItem}
+                  onClose={() => this.setState({ editItemId: null })}
+               /> }
                 { this.props.allowReconcile && <Button
                   labelPosition="right"
                   icon="edit"

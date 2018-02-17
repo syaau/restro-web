@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
-import { connect } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
-import updateCurrentTableId from './../actions/updateCuurentTableId';
 import ItemTypes from './ItemTypes';
 
 
@@ -15,7 +13,6 @@ const style = {
   color: 'black',
   border: '1px dashed gray',
   backgroundColor: 'white',
-//  padding: '0.5rem 1rem',
   cursor: 'move',
 };
 
@@ -34,7 +31,7 @@ function collect(connectprops, monitor) {
 }
 
 
-class TableObj extends Component  {
+class TableObj extends Component {
 
     static propTypes = {
       connectDragSource: PropTypes.func.isRequired,
@@ -42,10 +39,11 @@ class TableObj extends Component  {
       left: PropTypes.number.isRequired,
       top: PropTypes.number.isRequired,
       id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
       hideSourceOnDrag: PropTypes.bool.isRequired,
       children: PropTypes.node.isRequired,
       rotationAngle: PropTypes.number.isRequired,
-      updateCurrentTableId: PropTypes.func.isRequired,
+      currentTableId: PropTypes.func.isRequired,
     }
     state = {
       colorBackground: false,
@@ -63,12 +61,12 @@ class TableObj extends Component  {
         left,
         top,
         id,
+        name,
         rotationAngle,
         connectDragSource,
         isDragging,
         children,
       } = this.props;
-      console.log('roatation angle form from proops', JSON.stringify({ rotationAngle }));
       if (isDragging && hideSourceOnDrag) {
         return null;
       }
@@ -80,26 +78,20 @@ class TableObj extends Component  {
             ...style,
             left,
             top,
-            backgroundColor: this.state.colorBackground ? 'red' : '#fff',
+            backgroundColor: this.state.colorBackground ? 'blue' : '#fff',
             transform: `rotate(${rotationAngle}deg)`,
-            }}
-        >
+            }}>
           <Icon
             size="big"
             link
             name="table"
             onClick={() => { this.props.currentTableId(id); this.changeBackGroundColor(); }}
           />
-          <h3> No: {id}</h3>
+          <h5>{ name }</h5>
           {children}
         </div>);
     }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     currentTableId: state.currentTableId,
-//   };
-// };
 
 export default DragSource(ItemTypes.TABLE, tableSource, collect)(TableObj);

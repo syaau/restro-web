@@ -16,19 +16,19 @@ class Admin extends Component {
   render() {
     const { api, onLogout } = this.props;
     return (
-      <Grid stretched style={{ marginTop: '100px' }} centered verticalAlign="top" columns={2} rows={2}>
-        <Grid.Row>
-          <Grid.Column>
-            <Orders api={api} />
-          </Grid.Column>
-          <Grid.Column>
-            <StockWatch api={api} allowPurchase allowItemRemove allowReconcile />
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row stretched>
-          <FooterMenu api={api} onLogout={onLogout} showAddUser />
-        </Grid.Row>
-      </Grid>
+      <div>
+        <Grid stretched style={{ marginTop: '100px' }} centered verticalAlign="top" columns={2}>
+          <Grid.Row>
+            <Grid.Column>
+              <Orders api={api} />
+            </Grid.Column>
+            <Grid.Column>
+              <StockWatch api={api} allowPurchase allowItemRemove allowReconcile />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <FooterMenu api={api} onLogout={onLogout} showAddUser />
+      </div>
     );
   }
 }

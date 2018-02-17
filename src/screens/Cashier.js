@@ -14,7 +14,7 @@ class Cashier extends Component {
   }
 
   render() {
-    const { api } = this.props;
+    const { api, onLogout } = this.props;
     return (
       <Grid stretched style={{ marginTop: '100px' }} centered verticalAlign="top" columns={2} rows={2}>
         <Grid.Row>
@@ -26,7 +26,7 @@ class Cashier extends Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row stretched>
-          <FooterMenu api={api} />
+          <FooterMenu api={api} onLogout={onLogout} />
         </Grid.Row>
       </Grid>
     );

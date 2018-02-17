@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Dimmer, DimmerDimmable, Form, Loader } from 'semantic-ui-react';
 import Dropdown from './Dropdown';
-
 import connectInput from './connectInput';
 import withOptions from './withOptions';
 import getRecord from '../../reducers/getRecord';
@@ -13,7 +12,7 @@ class SchemaForm extends Component {
     super(props);
 
     this.state = {
-      data: props.initialData,
+      data: this.props.initialData,
       loading: false,
     };
   }
@@ -45,9 +44,8 @@ class SchemaForm extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('form state data', JSON.stringify(this.state));
-    const { schema, id, data } = this.state;
-    const { onSuccess, remoteApi } = this.props;
+    const { schema, data } = this.state;
+    const { onSuccess, remoteApi, id } = this.props;
     this.setState({ loading: true });
     const res = await remoteApi(data, id, schema);
     this.setState({ loading: false });
@@ -61,8 +59,6 @@ class SchemaForm extends Component {
       id, initialData, schema, children, onSuccess, remoteApi, __submit__, ...other
     } = this.props;
     const { loading } = this.state;
-    console.log(this.state);
-
     return (
       <DimmerDimmable dimmed={!!loading}>
         <Dimmer active={!!loading}>

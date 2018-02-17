@@ -50,7 +50,7 @@ class SchemaGrid extends Component {
       <Table celled>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell textAlign="center" colSpan={count}>{title}</Table.HeaderCell>
+            <Table.HeaderCell textAlign="center" colSpan={count}><h1>{title}</h1></Table.HeaderCell>
           </Table.Row>
           <Table.Row>
             { fields.map(this.renderHeader) }
