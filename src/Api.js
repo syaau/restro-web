@@ -13,6 +13,8 @@ class Api {
   deleteTable(id) {}
   placeOrder(tableId, orderItems, discount = 0, remarks = '') {}
   updateOrder(orderId, tableId, orderItems, discount = 0, remarks = '') {}
+  cancelOrder(orderId) {}
+  completeOrder(orderId) {}
   insertUser(user) {}
 }
 
