@@ -61,9 +61,9 @@ class StockWatch extends Component {
       <SchemaGrid
         schema="Item"
         fields={[
-          { name: 'name', header: 'Name' },
-          { name: 'stock', header: 'Stock' },
-          { name: 'threshold', header: 'Threshold' },
+          { name: 'name', header: 'Name', width: 6 },
+          { name: 'stock', header: 'Stock', width: 1 },
+          { name: 'threshold', header: 'Threshold', width: 1 },
         ]}
         title="Stock Watch"
         emptyMessage="No items in database"

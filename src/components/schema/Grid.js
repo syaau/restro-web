@@ -7,7 +7,7 @@ import getRecords from '../../reducers/getRecords';
 
 class SchemaGrid extends Component {
   renderHeader = field => (
-    <Table.HeaderCell key={field.name} collapsing>{field.header}</Table.HeaderCell>
+    <Table.HeaderCell key={field.name} width={field.width}>{field.header}</Table.HeaderCell>
   );
   renderRow = (record) => {
     const { fields, actionButtons } = this.props;
@@ -23,7 +23,9 @@ class SchemaGrid extends Component {
                icon, action, color, hoverMessage,
               }) => (
                 <Popup
-                  trigger={<Button color={color} key={icon} onClick={() => action(record)} icon={icon} />}
+                  trigger={
+                    <Button color={color} key={icon} onClick={() => action(record)} icon={icon} />
+                  }
                   content={hoverMessage}
                   hideOnScroll
                 />
@@ -47,7 +49,7 @@ class SchemaGrid extends Component {
     const count = fields.length + (actionButtons.length > 0 ? 1 : 0);
 
     return (
-      <Table celled>
+      <Table celled compact="very">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell textAlign="center" colSpan={count}><h1>{title}</h1></Table.HeaderCell>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import StockWatch from './../components/StockWatch';
-import Orders from './../components/Orders';
+import Orders from './../components/Orders/index';
 import FooterMenu from './../components/FooerMenu';
 
 class Admin extends Component {
