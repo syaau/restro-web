@@ -38,7 +38,13 @@ class StockWatch extends Component {
     const actionButtons = [];
     if (this.props.allowPurchase) {
       actionButtons.push({
-        icon: 'add circle', color: 'blue', hoverMessage: 'Add Stock', action: record => this.setState({ showPurchase: !this.state.showPurchase, itemRecord: record })
+        icon: 'add circle',
+        color: 'blue',
+        hoverMessage: 'Add Stock',
+        action: record => this.setState({
+          showPurchase: !this.state.showPurchase,
+          itemRecord: record,
+        }),
       });
     }
     if (this.props.allowItemRemove) {
@@ -48,7 +54,7 @@ class StockWatch extends Component {
     }
     if (this.props.allowItemRemove) {
       actionButtons.push({
-        icon: 'edit', color: 'blue', hoverMessage: 'Edit Item', action: record => this.setState({editItemId: record.id}),
+        icon: 'edit', color: 'blue', hoverMessage: 'Edit Item', action: record => this.setState({ editItemId: record.id }),
       });
     }
     return (
@@ -79,22 +85,22 @@ class StockWatch extends Component {
                 />
 
                 {this.state.editItemId &&
-                <SchemaModal
-                  remoteApi={this.props.api.updateItem}
-                  title="Update Item"
-                  api={api}
-                  closeOnSave
-                  id={this.state.editItemId}
-                  size="mini"
-                  open={this.state.editItemId}
-                  form={AddItem}
-                  onClose={() => this.setState({ editItemId: null })}
-               /> }
+                  <SchemaModal
+                    remoteApi={this.props.api.updateItem}
+                    title="Update Item"
+                    api={api}
+                    closeOnSave
+                    id={this.state.editItemId}
+                    size="mini"
+                    open={this.state.editItemId}
+                    form={AddItem}
+                    onClose={() => this.setState({ editItemId: null })}
+                  />}
                 { this.props.allowReconcile && <Button
                   labelPosition="right"
                   icon="edit"
                   primary
-                  onClick={() => this.setState({ showReconciliationStock: !this.showReconciliationStock })}
+                  onClick={() => this.setState({ showReconciliationStock: true })}
                   content="Reconcile"
                 /> }
               </Grid.Row>
@@ -123,7 +129,7 @@ class StockWatch extends Component {
             {this.state.itemRecord &&
             <SchemaModal
               remoteApi={api.purchaseItem}
-              title={ `Add ${this.state.itemRecord.name}  Stock`}
+              title={`Add ${this.state.itemRecord.name} Stock`}
               size="mini"
               closeOnSave
               initialData={{ itemId: this.state.itemRecord.id }}
@@ -143,6 +149,7 @@ StockWatch.propTypes = {
   allowItemRemove: PropTypes.bool,
   allowPurchase: PropTypes.bool,
   api: PropTypes.shape({
+    updateItem: PropTypes.func,
     deleteItem: PropTypes.func,
     reconcile: PropTypes.func,
   }).isRequired,
@@ -152,7 +159,7 @@ StockWatch.defaultProps = {
   allowItemRemove: false,
   allowPurchase: false,
   allowReconcile: false,
-}
+};
 
 
 export default StockWatch;

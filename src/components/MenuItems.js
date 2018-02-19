@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Icon, Segment } from 'semantic-ui-react';
+import { Table, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropsTypes from 'prop-types';
 import { SchemaModal } from '../components/schema';
@@ -106,11 +106,9 @@ MenuItems.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    menuItems: state.schema.MenuItem,
-    items: state.schema.Item,
-  };
-};
+const mapStateToProps = state => ({
+  menuItems: state.schema.MenuItem,
+  items: state.schema.Item,
+});
 
 export default connect(mapStateToProps)(MenuItems);

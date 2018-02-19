@@ -20,33 +20,34 @@ class FooterMenu extends Component {
       activeItem: null,
     };
   }
- handleMenuClick = activeMenuItem => {
-   this.setState({activeItem: activeMenuItem})
-    switch(activeMenuItem) {
-     case 'table_watch':
-       this.setState({
-         showTable: true,
-         menuItems: false,
-         addUser: false,
-       })
-       break;
-       case 'menu_item':
-       this.setState({
-         showTable: false,
-         menuItems: true,
-         addUser: false,
-       })
-       break;
-       case 'add_user':
-       this.setState({
-         showTable: false,
-         menuItems: false,
-         addUser: true,
-       })
-       break;
-       default: null;
-   }
- }
+  handleMenuClick = (activeMenuItem) => {
+    this.setState({ activeItem: activeMenuItem });
+    switch (activeMenuItem) {
+      case 'table_watch':
+        this.setState({
+          showTable: true,
+          menuItems: false,
+          addUser: false,
+        });
+        break;
+      case 'menu_item':
+        this.setState({
+          showTable: false,
+          menuItems: true,
+          addUser: false,
+        });
+        break;
+      case 'add_user':
+        this.setState({
+          showTable: false,
+          menuItems: false,
+          addUser: true,
+        });
+        break;
+      default:
+        break;
+    }
+  }
 
   render() {
     const { activeItem } = this.state;
@@ -75,7 +76,7 @@ class FooterMenu extends Component {
           onClose={() => this.setState({ addUser: false })}
         /> }
       </div>
-        );
+    );
   }
 }
 
