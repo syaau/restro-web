@@ -10,6 +10,9 @@ class AddOrderItem extends Component {
         value: id,
         text: props.menuItems[id].name,
       })),
+      rate: 0,
+      qty: 1,
+      menuItemId: '',
     };
   }
 
