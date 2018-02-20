@@ -27,7 +27,7 @@ class Admin extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <FooterMenu api={api} onLogout={onLogout} showAddUser />
+        <FooterMenu api={api} onLogout={onLogout} showAddUser showReport />
       </div>
     );
   }

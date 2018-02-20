@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import OrderItem from '../forms/OrderItem';
 import OrderRow from './OrderRow';
 import DeleteConfirmation from '../forms/Confirmation';
+import Bill from './Bill';
 
 class Orders extends Component {
   constructor(props) {
@@ -77,6 +78,13 @@ class Orders extends Component {
             this.setState(({ cancelOrder: null }));
           }}
         />}
+        { this.state.printOrder && (
+          <Bill
+            id={this.state.printOrder.id}
+            print={() => this.props.api.printOrder(this.state.printOrder.id)}
+            onClose={() => this.setState({ printOrder: null })}
+          />
+        )}
       </div>
     );
   }
@@ -90,6 +98,7 @@ Orders.propTypes = {
   api: PropTypes.shape({
     cancelOrder: PropTypes.func,
     completeOrder: PropTypes.func,
+    printOrder: PropTypes.func,
   }).isRequired,
   orders: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,

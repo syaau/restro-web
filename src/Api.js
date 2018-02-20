@@ -11,11 +11,14 @@ class Api {
   insertTable(table) {}
   updateTable(obj, id) {}
   deleteTable(id) {}
-  placeOrder(tableId, orderItems, discount = 0, remarks = '') {}
-  updateOrder(orderId, tableId, orderItems, discount = 0, remarks = '') {}
+  placeOrder(tableId, orderItems, discount = 0, serviceCharge, vat) {}
+  updateOrder(orderId, tableId, orderItems, discount = 0, serviceCharge, vat) {}
+  printOrder(orderId) {}
   cancelOrder(orderId) {}
   completeOrder(orderId) {}
   insertUser(user) {}
+
+  extractSales(itemTypeId, start, end) {}
 }
 
 export default Api;

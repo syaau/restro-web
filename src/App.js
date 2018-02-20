@@ -1,3 +1,4 @@
+/* global window */
 import React, { Component } from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Container, Dimmer, Header, Icon, Grid } from 'semantic-ui-react';
@@ -12,6 +13,7 @@ import Api from './Api';
 import Login from './components/Login';
 import Cashier from './screens/Cashier';
 import Admin from './screens/Admin';
+import Report from './screens/Report';
 
 import schemaReducer from './reducers/schemaReducer';
 
@@ -128,6 +130,8 @@ class App extends Component {
     const dimmer = user && offline;
     if (!user) {
       content = <Login onLogin={this.onLogin} />;
+    } else if (window.location.pathname === '/report') {
+      content = <Report user={user} onLogout={this.onLogout} api={this.api} />
     } else {
       const Screen = getUserScreen(user.role);
       content = <Screen user={user} onLogout={this.onLogout} api={this.api} />;

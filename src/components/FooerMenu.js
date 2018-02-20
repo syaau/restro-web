@@ -51,7 +51,7 @@ class FooterMenu extends Component {
 
   render() {
     const { activeItem } = this.state;
-    const { onLogout } = this.props;
+    const { onLogout, showReport } = this.props;
     return (
       <div style={style}>
         <Segment inverted >
@@ -62,6 +62,9 @@ class FooterMenu extends Component {
             <Menu.Item name="add user" active={activeItem === 'add_user'} onClick={() => this.handleMenuClick('add_user')} />
             }
             <Menu.Item name="log  out" active={activeItem === 'log out'} onClick={onLogout} />
+            {this.props.showReport &&
+              <Menu.Item name="report" active={activeItem === 'report'} onClick={() => window.open('/report', '_blank')} />
+            }
           </Menu>
         </Segment>
         {this.state.menuItems && <MenuItems api={this.props.api} />}
@@ -75,6 +78,7 @@ class FooterMenu extends Component {
           form={AddUser}
           onClose={() => this.setState({ addUser: false })}
         /> }
+
       </div>
     );
   }
@@ -83,9 +87,14 @@ class FooterMenu extends Component {
 FooterMenu.propTypes = {
   onLogout: PropTypes.func.isRequired,
   showAddUser: PropTypes.bool.isRequired,
+  showReport: PropTypes.bool,
   api: PropTypes.shape({
     insertUser: PropTypes.func.isRequired,
   }).isRequired,
+};
+
+FooterMenu.defaultProps = {
+  showReport: false,
 };
 
 export default FooterMenu;
