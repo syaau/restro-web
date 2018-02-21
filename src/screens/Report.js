@@ -11,7 +11,7 @@ const ItemType = withOptions(Dropdown, 'ItemType', 'name');
 class Report extends Component {
   state = {
     end: moment().format('YYYY-MM-DD'),
-    start: moment().subtract(7, 'days').format('YYYY-MM-DD'),
+    start: moment().subtract(6, 'days').format('YYYY-MM-DD'),
     itemType: '',
     loading: false,
     data: [],
