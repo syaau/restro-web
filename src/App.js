@@ -8,7 +8,8 @@ import Cookies from 'universal-cookie';
 import createSocket, { connectApi, XHRValidator, ValidationError } from 'socket.red-client';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
-import config from './config';
+
+import { WEBSOCKET_URL } from './config';
 import Api from './Api';
 import Login from './components/Login';
 import Cashier from './screens/Cashier';
@@ -93,13 +94,13 @@ class App extends Component {
 
   componentDidMount() {
     if (this.state.sessionId) {
-      this.socket.open(`${config.WEBSOCKET_URL}${this.state.sessionId}`);
+      this.socket.open(`${WEBSOCKET_URL}${this.state.sessionId}`);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.sessionId !== this.state.sessionId && this.state.sessionId) {
-      this.socket.open(`${config.WEBSOCKET_URL}${this.state.sessionId}`);
+      this.socket.open(`${WEBSOCKET_URL}${this.state.sessionId}`);
     }
   }
 
