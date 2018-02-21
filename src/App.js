@@ -130,8 +130,8 @@ class App extends Component {
     const dimmer = user && offline;
     if (!user) {
       content = <Login onLogin={this.onLogin} />;
-    } else if (window.location.pathname === '/report') {
-      content = <Report user={user} onLogout={this.onLogout} api={this.api} />
+    } else if (window.location.hash === '#report') {
+      content = <Report user={user} onLogout={this.onLogout} api={this.api} />;
     } else {
       const Screen = getUserScreen(user.role);
       content = <Screen user={user} onLogout={this.onLogout} api={this.api} />;
