@@ -11,11 +11,11 @@ const style = {
 };
 
 function getItemName(itemId, items) {
-  if (itemId === null) {
+  if (!itemId) {
     return '<No Item Group>';
   }
   const item = items.find(i => i.id === itemId);
-  if (item === null) {
+  if (!item) {
     return `[Deleted::${itemId}]`;
   }
   return item.name;
