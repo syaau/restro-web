@@ -1,3 +1,4 @@
+/* global window */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Segment, Menu } from 'semantic-ui-react';
@@ -63,7 +64,7 @@ class FooterMenu extends Component {
             }
             <Menu.Item name="log  out" active={activeItem === 'log out'} onClick={onLogout} />
             {this.props.showReport &&
-              <Menu.Item name="report" active={activeItem === 'report'} onClick={() => window.open('/report', '_blank')} />
+              <Menu.Item name="report" active={activeItem === 'report'} onClick={() => window.open('#report', '_blank')} />
             }
           </Menu>
         </Segment>
