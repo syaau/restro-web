@@ -5,9 +5,9 @@ import { Container, Dimmer, Header, Icon, Grid } from 'semantic-ui-react';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import Cookies from 'universal-cookie';
-import createSocket, { connectApi, XHRValidator, ValidationError } from 'socket.red-client';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
+import createSocket, { connectApi, XHRValidator, ValidationError } from 'socket.red-client';
 
 import { WEBSOCKET_URL } from './config';
 import Api from './Api';
@@ -67,11 +67,10 @@ class App extends Component {
 
     this.socket.on('error', (e) => {
       // eslint-disable-next-line no-console
-      console.error('Socket error', e.constructor.name);
+      console.error('Socket error', e);
 
       // TODO: ValidationError checking is not working here
       if (e instanceof ValidationError) {
-        console.log('Is this validation error');
         this.setState({
           user: null,
         });
