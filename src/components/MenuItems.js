@@ -10,6 +10,31 @@ const style = {
   width: '100%',
 };
 
+function getItemName(itemId, items) {
+  if (itemId === null) {
+    return '<No Item Group>';
+  }
+  const item = items.find(i => i.id === itemId);
+  if (item === null) {
+    return `[Deleted::${itemId}]`;
+  }
+  return item.name;
+}
+
+function sortMenuItem(a, b) {
+  // eslint-disable-next-line no-restricted-globals
+  if (a.itemId === b.itemId) {
+    if (a.name < b.name) {
+      return -1;
+    } else if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  }
+
+  return a.itemId - b.itemId;
+}
+
 class MenuItems extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +44,8 @@ class MenuItems extends Component {
     };
   }
   render() {
+    const menuItems = this.props.menuItems.slice().sort(sortMenuItem);
+
     return (
       <div style={style}>
         <Table celled>
@@ -38,12 +65,12 @@ class MenuItems extends Component {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {this.props.menuItems.map(menuitem => (
+            {menuItems.map(menuitem => (
               <Table.Row
                 key={menuitem.id}
               >
                 <Table.Cell>{menuitem.name}</Table.Cell>
-                <Table.Cell>{this.props.items.find(item => item.id === menuitem.itemId).name}</Table.Cell>
+                <Table.Cell>{getItemName(menuitem.itemId, this.props.items)}</Table.Cell>
                 <Table.Cell>{menuitem.qty}</Table.Cell>
                 <Table.Cell> {menuitem.price}</Table.Cell>
                 <Table.Cell>
