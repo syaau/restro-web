@@ -59,8 +59,8 @@ class App extends Component {
 
     // Create socket with default options
     this.socket = createSocket(store.dispatch, {
-      erroRetryInterval: 2000,
-      responseTimeoutInterval: 1000,
+      erroRetryInterval: 1000,
+      responseTimeoutInterval: 15000,
     }, undefined, undefined, XHRValidator);
 
     this.api = connectApi(Api, this.socket);
